@@ -1,0 +1,31 @@
+export class Users {
+    userAutoID: number;
+    userID: string;
+    userTypeID: number;
+    organizationID: number;
+    designationID: number;
+    userFullName: string;
+    mobileNo: string;
+    address: string;
+    password: string;
+    passwordExpiryDate: string | null;
+    status: number;
+    email: string;
+    roleID: number;
+    userImage: string;
+    logo: string;
+    // note: string;
+    lastLatitude: number | null;
+    lastLongitude: number | null;
+    is2FAauthenticationEnabled: boolean | null;
+    CanChangeOwnPassword:boolean | null;
+    nid: string;
+    iMIE: string;
+    macAddress: string;
+    createdDate: string;
+    createdBy: number;
+    updatedDate: string;
+    updatedBy: number;
+    canChangeOwnPassword: boolean | null;
+    mobileVerification: boolean | null;
+}

@@ -1,0 +1,281 @@
+<div class="container-fluid">
+    <app-page-title title="Permission" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <!-- <ul class="list-group">
+        <li class="list-group-item" *ngFor="let permission of lstPermissions_1">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    {{permission.displayName}}
+                </div>
+
+            </div>
+        </li>
+      </ul> -->
+
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="accordion permission-accordion">
+                        <div class="accordion-item " *ngFor="let layer_1 of lstPermissions_1">
+                            <div class="accordion-header mt-1" (click)="collapseToggle(layer_1)">
+                                <button class="accordion-button"
+                                    [ngClass]="{'collaps-open': layer_1.isCollapsed == true}" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+                                    aria-controls="collapseOne">
+                                    <span class="permission-type-icon" *ngIf="layer_1.permissionType == 1"><i
+                                            class="bx bx-link"></i></span>
+                                    <span class="permission-type-icon" *ngIf="layer_1.permissionType == 2"><i
+                                            class="bx bx-dialpad"></i></span>
+                                    <span class="permission-type-icon" *ngIf="layer_1.permissionType == 3"><i
+                                            class="bx bx-user"></i></span>
+                                    {{layer_1.displayName}}
+                                </button>
+                            </div>
+
+                            <div class="accordion-collapse" *ngIf="layer_1.childList">
+                                <div class="accordion-body">
+                                    <div class="accordion-item" *ngFor="let layer_2 of layer_1.childList">
+                                        <div class="accordion-header" (click)="collapseToggle(layer_2)">
+                                            <button class="accordion-button"
+                                                [ngClass]="{'collaps-open': layer_2.isCollapsed == true}" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                                aria-expanded="true" aria-controls="collapseOne">
+                                                <span class="permission-type-icon"
+                                                    *ngIf="layer_2.permissionType == 1"><i
+                                                        class="bx bx-link"></i></span>
+                                                <span class="permission-type-icon"
+                                                    *ngIf="layer_2.permissionType == 2"><i
+                                                        class="bx bx-dialpad"></i></span>
+                                                <span class="permission-type-icon"
+                                                    *ngIf="layer_2.permissionType == 3"><i
+                                                        class="bx bx-user"></i></span>
+                                                {{layer_2.displayName}}
+                                            </button>
+                                        </div>
+                                        <div class="accordion-collapse " *ngIf="layer_2.childList">
+                                            <div class="accordion-body">
+                                                <div class="accordion-item" *ngFor="let layer_3 of layer_2.childList">
+                                                    <div class="accordion-header" (click)="collapseToggle(layer_3)">
+                                                        <button class="accordion-button"
+                                                            [ngClass]="{'collaps-open': layer_3.isCollapsed == true}"
+                                                            type="button" data-bs-toggle="collapse"
+                                                            data-bs-target="#collapseOne" aria-expanded="true"
+                                                            aria-controls="collapseOne">
+
+                                                            <span class="permission-type-icon"
+                                                                *ngIf="layer_3.permissionType == 1"><i
+                                                                    class="bx bx-link"></i></span>
+                                                            <span class="permission-type-icon"
+                                                                *ngIf="layer_3.permissionType == 2"><i
+                                                                    class="bx bx-dialpad"></i></span>
+                                                            <span class="permission-type-icon"
+                                                                *ngIf="layer_3.permissionType == 3"><i
+                                                                    class="bx bx-user"></i></span>
+                                                            {{layer_3.displayName}}
+                                                        </button>
+
+                                                    </div>
+
+                                                    <div class="accordion-collapse" *ngIf="layer_3.childList">
+                                                        <div class="accordion-body">
+                                                            <div class="accordion-item"
+                                                                *ngFor="let layer_4 of layer_3.childList">
+                                                                <div class="accordion-header"
+                                                                    (click)="collapseToggle(layer_4)">
+                                                                    <button class="accordion-button"
+                                                                        [ngClass]="{'collaps-open': layer_4.isCollapsed == true}"
+                                                                        type="button" data-bs-toggle="collapse"
+                                                                        data-bs-target="#collapseOne"
+                                                                        aria-expanded="true"
+                                                                        aria-controls="collapseOne">
+
+                                                                        <span class="permission-type-icon"
+                                                                            *ngIf="layer_4.permissionType == 1"><i
+                                                                                class="bx bx-link"></i></span>
+                                                                        <span class="permission-type-icon"
+                                                                            *ngIf="layer_4.permissionType == 2"><i
+                                                                                class="bx bx-dialpad"></i></span>
+                                                                        <span class="permission-type-icon"
+                                                                            *ngIf="layer_4.permissionType == 3"><i
+                                                                                class="bx bx-user"></i></span>
+                                                                        {{layer_4.displayName}}
+                                                                    </button>
+
+                                                                </div>
+                                                                <div class="accordion-collapse"
+                                                                    *ngIf="layer_4.childList">
+                                                                    <div class="accordion-body">
+                                                                        <div class="accordion-item"
+                                                                            *ngFor="let layer_5 of layer_4.childList">
+                                                                            <div class="accordion-header"
+                                                                                (click)="collapseToggle(layer_5)">
+                                                                                <button class="accordion-button"
+                                                                                    [ngClass]="{'collaps-open': layer_4.isCollapsed == true}"
+                                                                                    type="button"
+                                                                                    data-bs-toggle="collapse"
+                                                                                    data-bs-target="#collapseOne"
+                                                                                    aria-expanded="true"
+                                                                                    aria-controls="collapseOne">
+
+                                                                                    <span class="permission-type-icon"
+                                                                                        *ngIf="layer_5.permissionType == 1"><i
+                                                                                            class="bx bx-link"></i></span>
+                                                                                    <span class="permission-type-icon"
+                                                                                        *ngIf="layer_5.permissionType == 2"><i
+                                                                                            class="bx bx-dialpad"></i></span>
+                                                                                    <span class="permission-type-icon"
+                                                                                        *ngIf="layer_5.permissionType == 3"><i
+                                                                                            class="bx bx-user"></i></span>
+                                                                                    {{layer_4.displayName}}
+                                                                                </button>
+
+                                                                            </div>
+                                                                            <div class="accordion-collapse"
+                                                                                *ngIf="layer_5.childList">
+
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <!-- <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <ul class="list-unstyled categories-list">
+                        <li *ngFor="let permission of lstPermissions_1">
+                            <div class="custom-accordion">
+                                <a class="text-body fw-medium py-1 d-flex align-items-center"
+                                    (click)="collapseToggle(permission)" [attr.aria-expanded]="permission.isCollapsed"
+                                    data-toggle="collapse" href="javascript:void(0);" role="button"
+                                    aria-expanded="false" aria-controls="UserCollapse">
+
+                                    <span class="me-auto">{{permission.displayName}} </span>
+                                    <span><i class="mdi mdi-chevron-up accor-down-icon ms-auto"></i></span>
+                                </a>
+
+                                <div class="collapse" id="UserCollapse" #collapse="ngbCollapse"
+                                    [(ngbCollapse)]="permission.isCollapsed">
+                                    <div class="card border-0 shadow-none ps-2 mb-0">
+                                        <ul class="list-unstyled mb-0">
+                                            <li *ngFor="let child of permission.childList">
+                                                <a href="javascript: void(0);" class="d-flex align-items-center">
+                                                    <span class="me-auto">{{child.displayName}}</span>
+
+                                                    <span *ngIf="child.isCollapsed" (click)="collapseToggle(child)"
+                                                        [attr.aria-expanded]="child.isCollapsed" data-toggle="collapse"
+                                                        href="javascript:void(0);" role="button"
+                                                        aria-expanded="false"><i
+                                                            class="mdi mdi-arrow-right text-primary ms-auto"></i></span>
+                                                </a>
+                                                <div class="collapse" id="UserCollapse" #collapse="ngbCollapse"
+                                                    [(ngbCollapse)]="child.isCollapsed">
+                                                    <div class="card border-0 shadow-none ps-2 mb-0">
+                                                        <ul class="list-unstyled mb-0">
+                                                            <li *ngFor="let child of permission.childList">
+                                                                <a href="javascript: void(0);"
+                                                                    class="d-flex align-items-center">
+                                                                    <span class="me-auto">{{child.displayName}}</span>
+
+                                                                    <span (click)="collapseToggle(child)"
+                                                                        [attr.aria-expanded]="child.isCollapsed"
+                                                                        data-toggle="collapse"
+                                                                        href="javascript:void(0);" role="button"
+                                                                        aria-expanded="false"><i
+                                                                            class="mdi mdi-arrow-right text-primary ms-auto"></i></span>
+                                                                </a>
+
+
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-xl-flex">
+        <div class="w-100">
+            <div class="d-md-flex">
+                <div class="card filemanager-sidebar me-md-2">
+                    <div class="card-body">
+
+                        <div class="d-flex flex-column h-100">
+                            <div class="mb-4">
+
+                                <ul class="list-unstyled categories-list">
+                                    <li *ngFor="let permission of lstPermissions_1">
+                                        <div class="custom-accordion">
+                                            <a class="text-body fw-medium py-1 d-flex align-items-center"
+                                                (click)="collapseToggle(permission)"
+                                                [attr.aria-expanded]="permission.isCollapsed" data-toggle="collapse"
+                                                href="javascript:void(0);" role="button" aria-expanded="false"
+                                                aria-controls="UserCollapse">
+
+                                                {{permission.displayName}} <i
+                                                    class="mdi mdi-chevron-up accor-down-icon ms-auto"></i>
+                                            </a>
+
+                                            <div class="collapse" id="UserCollapse" #collapse="ngbCollapse"
+                                                [(ngbCollapse)]="permission.isCollapsed">
+                                                <div class="card border-0 shadow-none ps-2 mb-0">
+                                                    <ul class="list-unstyled mb-0">
+                                                        <li *ngFor="let child of permission.childList">
+                                                            <a href="javascript: void(0);"
+                                                                class="d-flex align-items-center">
+                                                                <span class="me-auto">{{child.displayName}}</span>
+                                                                <i class="mdi mdi-link text-primary ms-auto"></i></a>
+
+
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div> -->
+
+</div>
