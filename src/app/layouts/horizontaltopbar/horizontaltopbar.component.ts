@@ -11,7 +11,8 @@ import { DOCUMENT } from '@angular/common';
 
 import { MENU } from './menu';
 import { MenuItem } from './menu.model';
-import { environment } from '../../../environments/environment';
+import { environment } from 'src/environments/environment';
+// import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-horizontaltopbar',

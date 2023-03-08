@@ -32,7 +32,20 @@ export const MENU: MenuItem[] = [
         ]
     },
     {
-        id: 3,
+        id: 4,
+        icon: 'bx-user',
+        label: 'Organization',
+        subItems: [
+            {
+                id: 365,
+                label: 'Organization List',
+                link: '/settings/organization/organization-list',
+                parentId: 41
+            }
+        ]
+    },
+    {
+        id: 5,
         icon: 'bx-cog',
         label: 'Setup',
         subItems: [
@@ -44,12 +57,29 @@ export const MENU: MenuItem[] = [
             },
             {
                 id: 442,
-                label: 'User Level',
-                link: '/settings/user-Level',
+                label: 'User Role',
+                link: '/settings/user-role',
                 parentId: 41
-            }
+            },
+            {
+                id: 443,
+                label: 'Global Setting',
+                link: '/settings/global-setting',
+                parentId: 41
+            },
+            {
+                id: 443,
+                label: 'Notification Area',
+                link: '/settings/notification-area',
+                parentId: 41
+            },
+            // {
+            //     id: 443,
+            //     label: 'User Role',
+            //     link: '/settings/user-role',
+            //     parentId: 41
+            // },
         ]
     },
-
 ];
 

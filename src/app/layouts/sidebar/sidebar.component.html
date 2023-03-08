@@ -4,49 +4,85 @@
 
   <!--- Sidemenu -->
   <div id="sidebar-menu">
+
     <!-- Left Menu Start -->
     <ul class="metismenu list-unstyled" id="side-menu" #sideMenu>
+
       <!-- {{menuItems}} -->
-      <ng-container *ngFor="let item of menuItems">
-        <li class="menu-title" *ngIf="item.isTitle">{{ item.label | translate }}</li>
-        <li *ngIf="!item.isTitle && !item.isLayout">
-          <a *ngIf="hasItems(item)" href="javascript:void(0);" class="is-parent"
-            [ngClass]="{'has-arrow': !item.badge, 'has-dropdown': item.badge}">
-            <i class="bx {{item.icon}}" *ngIf="item.icon"></i>
-            <span> {{ item.label | translate }}</span>
-            <span class="badge rounded-pill float-end bg-{{item.badge.variant}}" *ngIf="item.badge">{{item.badge.text |
+      <!-- Node Tree Container -->
+      
+      <ng-container *ngFor="let node of lstmenuItems" [ngTemplateOutlet]="treeNode"
+        [ngTemplateOutletContext]="{ $implicit: node }">
+      </ng-container>
+      <ng-template #treeNode let-data>
+        <li>
+          <a  (click)="onToggle(data)" href="javascript:void(0);" class="is-parent" 
+            [ngClass]="{'has-arrow': !data.isCollapsed, 'has-dropdown': data.hasChild==true, 'link-active': data.isLinkActive==true}">
+            <i class="bx {{data.iconName}}" *ngIf="data.iconName"></i>
+            <span> {{ data.displayName}}</span>
+            <!-- <span class="badge rounded-pill float-end bg-{{data.badge.variant}}" *ngIf="data.isCollapsed">{{data.badge.text |
+            translate}}</span> -->
+          </a>
+
+          <!-- <a (click)="onToggle(data)" class="side-nav-link-ref"
+            routerLinkActive="active">
+            <i class="bx {{ data.iconName }}" *ngIf="data.iconName"></i>
+            <span> {{ data.displayName }}</span>
+            <span class="badge rounded-pill bg-{{data.badge.variant}} float-end" *ngIf="data.badge">{{data.badge.text
+              |
+              translate}}</span>
+          </a> -->
+        </li>
+        <ng-container *ngIf="data.childList">
+          <ul *ngIf="!data.isCollapsed">
+              <ng-container *ngFor="let child of data.childList" [ngTemplateOutlet]="treeNode"
+                  [ngTemplateOutletContext]="{ $implicit: child }">
+              </ng-container>
+          </ul>
+      </ng-container>
+      </ng-template>
+      <!-- Node Tree Container -->
+<!-- 
+      <ng-container *ngFor="let item1 of lstmenuItems; let first = first;">
+        <li class="menu-title" *ngIf="first">Menu</li>
+        <li>
+          <a *ngIf="!hasItems(item1)" (click)="collapseToggle(item1)" href="javascript:void(0);" class="is-parent"
+            [ngClass]="{'has-arrow': !item1.isCollapsed, 'has-dropdown': item1.hasChild==true}">
+            <i class="bx {{item1.iconName}}" *ngIf="item1.iconName"></i>
+            <span> {{ item1.displayName}}</span>
+          </a>
+
+          <a *ngIf="hasItems(item1)" (click)="collapseToggle(item1)" class="side-nav-link-ref"
+            routerLinkActive="active">
+            <i class="bx {{ item1.iconName }}" *ngIf="item1.iconName"></i>
+            <span> {{ item1.displayName }}</span>
+            <span class="badge rounded-pill bg-{{item1.badge.variant}} float-end" *ngIf="item1.badge">{{item1.badge.text
+              |
               translate}}</span>
           </a>
 
-          <a [routerLink]="item.link" *ngIf="!hasItems(item)" class="side-nav-link-ref" routerLinkActive="active">
-            <i class="bx {{ item.icon }}" *ngIf="item.icon"></i>
-            <span> {{ item.label | translate }}</span>
-            <span class="badge rounded-pill bg-{{item.badge.variant}} float-end" *ngIf="item.badge">{{item.badge.text |
-              translate}}</span>
-          </a>
-
-          <ul *ngIf="hasItems(item)" class="sub-menu" aria-expanded="false">
-            <li *ngFor="let subitem of item.subItems">
-              <a [routerLink]="subitem.link" *ngIf="!hasItems(subitem)" class="side-nav-link-ref"
-                [attr.data-parent]="subitem.parentId" routerLinkActive="active">
-                {{ subitem.label | translate}}
+          <ul *ngIf="item1.childList" class="sub-menu " aria-expanded="false">
+            <li *ngFor="let item2 of item1.childList">
+              <a *ngIf="!hasItems(item2)" (click)="collapseToggle(item2)" class="side-nav-link-ref"
+                [attr.data-parent]="item2.parentPermissionID" routerLinkActive="active">
+                {{ item2.displayName}}
               </a>
-              <a *ngIf="hasItems(subitem)" class="side-nav-link-a-ref has-arrow" href="javascript:void(0);"
-                [attr.data-parent]="subitem.parentId">
-                {{ subitem.label | translate}}
+              <a *ngIf="hasItems(item2)" (click)="collapseToggle(item2)" class="side-nav-link-a-ref has-arrow"
+                href="javascript:void(0);" [attr.data-parent]="item2.parentPermissionID">
+                {{ item2.displayName}}
               </a>
-              <ul *ngIf="hasItems(subitem)" class="sub-menu mm-collapse" aria-expanded="false">
-                <li *ngFor="let subSubitem of subitem.subItems">
-                  <a [attr.data-parent]="subSubitem.parentId" [routerLink]="subSubitem.link" routerLinkActive="active"
-                    class="side-nav-link-ref">
-                    {{ subSubitem.label | translate }}
+              <ul *ngIf="hasItems(item2)" class="sub-menu mm-collapse" aria-expanded="false">
+                <li *ngFor="let item3 of item2.subItems">
+                  <a [attr.data-parent]="item3.parentPermissionID" (click)="collapseToggle(item3)"
+                    routerLinkActive="active" class="side-nav-link-ref">
+                    {{ item3.displayName }}
                   </a>
                 </li>
               </ul>
             </li>
           </ul>
         </li>
-      </ng-container>
+      </ng-container> -->
     </ul>
   </div>
 </ng-template>

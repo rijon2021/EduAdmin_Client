@@ -1,18 +1,27 @@
+// const api_endpoint = 'http://10.1.0.12:8024/api/' 
+import * as CryptoJS from 'crypto-js';
+import { LOCALSTORAGE_KEY } from 'src/app/core/models/localstorage-item';
 const api_endpoint = 'http://localhost:56006/api/';
+
+// var secretKey = 'my-secret-key';
+
+// var mapApiKey = localStorage.getItem('MAP_API_KEY');
+
+let googlemapAPi = localStorage.getItem(LOCALSTORAGE_KEY.GOOGLE_MAP_API_KEY);
+googlemapAPi = JSON.parse(googlemapAPi);
+if(googlemapAPi){
+  var mapApiKeyxz = CryptoJS.AES.decrypt(googlemapAPi, 'my-secret-key').toString(CryptoJS.enc.Utf8);
+}
+
+
+
+
 export const environment = {
   production: false,
-  base_url: api_endpoint,
-
-
-
-
-
-
-
-
-
+  baseUrl: api_endpoint,
+  // MAP_API_KEY_D: googlemapAPi,
+  MAP_API_KEY: googlemapAPi,
   
-
   defaultauth: 'fackbackend',
   firebaseConfig: {
     apiKey: '',

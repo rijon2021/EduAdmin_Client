@@ -20,6 +20,7 @@
             <img src="../../../assets/images/rtims/logo-white.png" alt="" height="40">
           </span>
         </a>
+        
       </div>
 
       <button type="button" class="btn btn-sm px-3 font-size-16 header-item" id="vertical-menu-btn"
@@ -68,8 +69,8 @@
 
       <div class="dropdown d-inline-block" ngbDropdown>
         <button type="button" class="btn header-item" ngbDropdownToggle id="page-header-user-dropdown">
-          <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg" alt="Header Avatar">
-          <span class="d-none d-xl-inline-block ms-1">Henry</span>
+          <img class="rounded-circle header-profile-user" src="../../../assets/images/rtims/swl-logo1.png" alt="Header Avatar">
+          <span class="d-none d-xl-inline-block ms-1">SWL</span>
           <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
         </button>
         <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
@@ -77,7 +78,8 @@
           <a class="dropdown-item" routerLink="/contacts/profile"><i class="bx bx-user font-size-16 align-middle me-1"></i>
             {{ 'HEADER.LOGIN.PROFILE' | translate}}</a>
          
-          <a class="dropdown-item d-block" href="javascript: void(0);">{{'HEADER.LOGIN.SETTINGS' | translate}} </a>
+          <a class="dropdown-item d-block" href="javascript: void(0);"> <i class="bx bx-cog font-size-16 align-middle me-1"></i>
+            {{'HEADER.LOGIN.SETTINGS' | translate}} </a>
           
           <div class="dropdown-divider"></div>
           <a class="dropdown-item text-danger" href="javascript: void(0);" (click)="logout()"><i

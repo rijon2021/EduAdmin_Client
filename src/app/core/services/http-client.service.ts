@@ -23,7 +23,7 @@ export class HttpClientService {
     private router: Router,
     private localStorageService: LocalStorageService
   ) {
-    this.BASE_URL = environment.base_url;
+    this.BASE_URL = environment.baseUrl;
     // this.Finance_URL = environment.client.finance_url;
     // this.Common_URL = environment.client.common_url;
     // this.Auth_URL = environment.client.auth_url;

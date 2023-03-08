@@ -4,8 +4,9 @@ import { ColDef, GridApi, GridOptions, GridReadyEvent, RowNode } from 'ag-grid-c
 import { Observable } from 'rxjs';
 import { RoutingHelper } from 'src/app/core/helpers/routing-helper';
 import { SweetAlertEnum, SweetAlertService } from 'src/app/core/helpers/sweet-alert.service';
-
-import { Routes, RouterModule } from '@angular/router';
+import { PageModel } from 'src/app/core/models/core/pageModel';
+import { Organization } from 'src/app/core/models/data/organization';
+import { UserRole } from 'src/app/core/models/settings/userRole';
 import { Users } from 'src/app/core/models/settings/users';
 import { UserService } from 'src/app/core/services/settings/user.service';
 
@@ -17,12 +18,10 @@ import { UserService } from 'src/app/core/services/settings/user.service';
 
 
 export class UserListComponent implements OnInit {
+  // bread crumb items
   lstUser: Users[] = new Array<Users>();
   selectedUser: Users = new Users();
-
-
-
-
+  public pageModel: PageModel;
 
   private gridApi;
   private gridColumnApi;
@@ -37,18 +36,17 @@ export class UserListComponent implements OnInit {
     defaultColDef: dataDefaultColDef,
   }
 
-
-
-
   constructor(
     private userService: UserService,
     private swal: SweetAlertService,
-    private router : Router
+    private router: Router
   ) { }
 
   ngOnInit() {
+    this.pageModel = new PageModel();
     this.getAll();
   }
+
 
   getAll() {
     this.userService.getAllByOrganizationID().subscribe(
@@ -84,13 +82,9 @@ export class UserListComponent implements OnInit {
       }
     }
   }
-
-
-  
-
-
-
-
+  filterToggler() {
+    this.pageModel.isActiveFilter = !this.pageModel.isActiveFilter;
+  }
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -108,11 +102,17 @@ export class UserListComponent implements OnInit {
       this.selectedUser = new Users();
     }
   }
+  onChangeColName(colDef: ColDef) {
+    const columns = this.gridOptions.columnApi.getAllColumns();
+    const valueColumn = columns.filter(column => column.getColDef().headerName === colDef.headerName)[0];
+    const newState = !valueColumn.isVisible();
+    this.gridOptions.columnApi.setColumnVisible(valueColumn, newState);
+    this.gridOptions.api.sizeColumnsToFit();
+  }
+  onBtnExport() {
+    this.gridApi.exportDataAsCsv();
+  }
 }
-
-
-
-
 
 const dataDefaultColDef: ColDef = {
   // flex: 1,
@@ -125,14 +125,29 @@ const dataDefaultColDef: ColDef = {
   // floatingFilter: true,
 };
 const dataColumnDefs = [
-  { field: 'slNo', headerName: 'SL', lockPosition: true, pinned: 'left', suppressMovable: true, valueGetter: "node.rowIndex + 1", resizable : false, width : 80 },
-  { field: "userID", headerName: 'User ID', lockPosition: true, pinned: 'left', suppressMovable: false },
-  { field: "userFullName", headerName: 'Full Name' },
-  { field: "mobileNo", headerName: 'Mobile No' },
-  { field: "nid", headerName: 'NID' },
-  { field: "address", headerName: 'Address' },
-  { field: "email", headerName: 'Email' },
-  { field: "lastLatitude", headerName: 'Latitude' },
-  { field: "lastLongitude", headerName: 'Longitude' },
-  { field: "status", headerName: 'Status' },
+  { isVisible: true, field: 'slNo', headerName: 'SL', lockPosition: true, pinned: 'left', suppressMovable: true, valueGetter: "node.rowIndex + 1", resizable: false, width: 80 },
+  { isVisible: true, field: "userID", headerName: 'User ID', lockPosition: true, pinned: 'left', suppressMovable: false },
+  { isVisible: true, field: "userFullName", headerName: 'Full Name' },
+  { isVisible: true, field: "mobileNo", headerName: 'Mobile No' },
+  { isVisible: true, field: "nid", headerName: 'NID', type: 'centerAligned' },
+  { isVisible: true, field: "address", headerName: 'Address', headerClass: 'ag-grid-text-center', cellStyle: { textAlign: 'center' } },
+  { isVisible: true, field: "email", headerName: 'Email', cellClass: "grid-cell-centered" },
+  { isVisible: true, field: "lastLatitude", headerName: 'Latitude' },
+  { isVisible: true, field: "lastLongitude", headerName: 'Longitude' },
+  { isVisible: true, field: "status", headerName: 'Is Active' },
 ];
+// interface pdfExportOptions {
+// 	/** styles to be applied to cells
+//     see supported list here: https://pdfmake.github.io/docs/0.1/document-definition-object/styling/. **/
+// 	styles?: {
+//     	background: String,
+//         fontSize: Number,
+//         bold: Boolean,
+//         color: String,
+// 		alignment: 'left' | 'center' | 'right',
+// 	},
+//     /** creates a hyperlink for each value in a column **/
+// 	createURL?: () => String,
+//     /** if true, does not include the column in the exported file **/
+// 	skipColumn?: Boolean
+// }

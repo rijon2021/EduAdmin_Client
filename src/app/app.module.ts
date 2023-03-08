@@ -22,6 +22,10 @@ import { SharedModule } from './shared/shared.module';
 import { FeatureModule } from './modules/feature/feature.module';
 import { SweetAlertService } from './core/helpers/sweet-alert.service';
 import { GlobalErrorHandler } from './core/errors/global-error-handler';
+import { ButtonRendererComponent } from './modules/renderer/button-renderer/button-renderer.component';
+import { HttpLoadingInterceptor } from './core/errors/http-loading.interceptor';
+import { CheckboxRendererComponent } from './modules/renderer/checkbox-renderer/checkbox-renderer.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 if (environment.defaultauth === 'firebase') {
   initFirebaseBackend(environment.firebaseConfig);
@@ -36,9 +40,13 @@ export function createTranslateLoader(http: HttpClient): any {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ButtonRendererComponent,
+    CheckboxRendererComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -61,18 +69,27 @@ export function createTranslateLoader(http: HttpClient): any {
     NgbModule,
 
   ],
+  exports:[
+    FormsModule,
+    ReactiveFormsModule
+  ],
   bootstrap: [AppComponent],
   providers: [
+    LocalStorageService,
+    SweetAlertService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
-    // HttpLocalService,
-    LocalStorageService,
-    SweetAlertService,
+    [{ provide: ErrorHandler, useClass: GlobalErrorHandler }],
     {
-      provide: ErrorHandler,
-      useClass: GlobalErrorHandler,
+      // interceptor to show loading spinner
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpLoadingInterceptor,
+      multi: true,
     },
+    // HttpLocalService,
+
+    // { provide: ErrorHandler, useClass: GlobalErrorHandler, },
     // {
     //   provide: HTTP_INTERCEPTORS,
     //   useClass: SweetAlertService,

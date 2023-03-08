@@ -8,7 +8,9 @@ import { HttpClientModule } from '@angular/common/http';
 // import { HttpHelper } from '../core/helpers/httpHelper';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+
+  ],
   imports: [
     CommonModule,
     UIModule,

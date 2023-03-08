@@ -12,20 +12,24 @@ export class PermissionService {
     let url = this.controllerName;
     return this.httpClientService.get(url);
   }
-  getByID(userAutoID: number) {
-    let url = this.controllerName + '/getByID/' + userAutoID;
+  getByID(permissionID: number) {
+    let url = this.controllerName + '/getByID/' + permissionID;
     return this.httpClientService.get(url);
   }
-  saveUser(obj) {
+  savePermission(obj) {
     let url = this.controllerName
     return this.httpClientService.postJson(url, obj);
   }
-  updateUser(obj) {   
+  updatePermission(obj) {
     let url = this.controllerName;
     return this.httpClientService.putJson(url, obj);
   }
-  deleteUser(userAutoID:number) {
-    let url = this.controllerName + '?id=' + userAutoID;
+  deletePermission(permissionID: number) {
+    let url = this.controllerName + '?id=' + permissionID;
     return this.httpClientService.delete(url);
+  }
+  updateOrder(obj) {
+    let url = this.controllerName + '/updateOrder'
+    return this.httpClientService.putJson(url, obj);
   }
 }

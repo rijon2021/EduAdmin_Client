@@ -9,9 +9,11 @@ import { AuthUser, TokenResult } from 'src/app/core/models/auth.models';
 import Swal from 'sweetalert2';
 import { RoutingHelper } from 'src/app/core/helpers/routing-helper';
 import { ResponseMessage } from 'src/app/core/models/responseMessage';
-import { ReturnStatus } from 'src/app/core/enums/globalEnum';
+import { GlobalSettingEnum, ReturnStatus } from 'src/app/core/enums/globalEnum';
 import { LOCALSTORAGE_KEY } from 'src/app/core/models/localstorage-item';
 import { HttpClientService } from 'src/app/core/services/http-client.service';
+import { SweetAlertEnum, SweetAlertService } from 'src/app/core/helpers/sweet-alert.service';
+import { GlobalSetting } from 'src/app/core/models/settings/globalSetting';
 
 @Component({
   selector: 'app-login',
@@ -19,10 +21,13 @@ import { HttpClientService } from 'src/app/core/services/http-client.service';
   styleUrls: ['./login.component.scss']
 })
 
+
 /**
  * Login component
  */
 export class LoginComponent implements OnInit {
+
+
 
   loginForm: FormGroup;
   submitted = false;
@@ -39,10 +44,14 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private authFackservice: AuthfakeauthenticationService,
-    private httpClientService : HttpClientService
+    private httpClientService: HttpClientService,
+    public swal: SweetAlertService
   ) { }
 
   ngOnInit() {
+
+
+
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
@@ -64,58 +73,55 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     let user = new AuthUser();
-    // RoutingHelper.navigate([], ['modules', 'settings', 'user-list']);
     user.userID = this.f.email.value;
     user.password = this.f.password.value;
-    this.authFackservice.login(user).pipe(first()).subscribe((res: ResponseMessage) => {
-      let data: ResponseMessage = res;   
-      if (data.responseObj) {     
-        if (data.statusCode == ReturnStatus.Success) {
-          let tokenResult: TokenResult = data.responseObj.tokenResult;
-          if (tokenResult.access_token && tokenResult.statusCode == 200) {
-            this.setLoginInformation(res);
-            RoutingHelper.navigate2([], ['feature/dashboard'], this.router);
+    this.authFackservice.login(user).pipe(first()).subscribe(
+      (res: ResponseMessage) => {
+        if (res.responseObj) {
+          if (res.statusCode == ReturnStatus.Success) {
+            let tokenResult: TokenResult = res.responseObj.tokenResult;
+            if (tokenResult.access_token && tokenResult.statusCode == 200) {
+              this.setLoginInformation(res);
+              RoutingHelper.navigate2([], ['feature/dashboard'], this.router);
+            }
+            else {
+              this.swal.message('No Token Found', SweetAlertEnum.error);
+            }
           }
           else {
-            alert('No Token Found');
+            this.swal.message(res.message, SweetAlertEnum.error);
           }
         }
         else {
-          alert('Invalid ID or password');
+          this.swal.message(res.message, SweetAlertEnum.error);
         }
-      }
-      else {
-        alert('Server Error');
-      }
-    },
+      },
       error => {
-        this.error = error ? error : '';
+        this.swal.message(error, SweetAlertEnum.error);
       });
   }
-  
+
   setLoginInformation(response: ResponseMessage) {
     // localStorage.clear();
     let authUser: AuthUser = response.responseObj;
     let tokenResult: TokenResult = response.responseObj.tokenResult;
-    // localStorage.setItem('userID', authUser.userID);
-    // localStorage.setItem('userAutoID', authUser.userAutoID.toString());
-    // localStorage.setItem('userTypeID', authUser.userTypeID.toString());
-    // localStorage.setItem('organizationID', authUser.organizationID.toString());
-    // localStorage.setItem('designationID', authUser.designationID.toString());
-    // localStorage.setItem('userFullName', authUser.userFullName);
-    // localStorage.setItem('roleID', authUser.roleID.toString());
     localStorage.setItem(LOCALSTORAGE_KEY.ACCESS_TOKEN, tokenResult.access_token);
     localStorage.setItem(LOCALSTORAGE_KEY.USER_ID, authUser.userID);
     localStorage.setItem(LOCALSTORAGE_KEY.USER_AUTO_ID, authUser.userAutoID.toString());
-    localStorage.setItem(LOCALSTORAGE_KEY.USER_TYPE_ID,  authUser.userTypeID.toString());
+    localStorage.setItem(LOCALSTORAGE_KEY.USER_TYPE_ID, authUser.userTypeID.toString());
     localStorage.setItem(LOCALSTORAGE_KEY.ORGANIZATION_ID, authUser.organizationID.toString());
     localStorage.setItem(LOCALSTORAGE_KEY.DESIGNATION_ID, authUser.designationID.toString());
     localStorage.setItem(LOCALSTORAGE_KEY.USER_FULL_NAME, authUser.userFullName);
-    localStorage.setItem(LOCALSTORAGE_KEY.ROLE_ID, authUser.roleID.toString());
+    localStorage.setItem(LOCALSTORAGE_KEY.ROLE_ID, authUser.userRoleID.toString());
     localStorage.setItem(LOCALSTORAGE_KEY.PERMISSIONS, JSON.stringify(authUser.permissions));
-    
+    localStorage.setItem(LOCALSTORAGE_KEY.GLOBAL_SETTINGS, JSON.stringify(authUser.globalSettings));
+    let globalSetting: GlobalSetting[] = authUser.globalSettings;
+    let mapApiKey = globalSetting.find(x => x.globalSettingID == GlobalSettingEnum.Google_Map_Key && x.isActive == true);
+    if (mapApiKey != null || mapApiKey != undefined) {
+      localStorage.setItem(LOCALSTORAGE_KEY.GOOGLE_MAP_API_KEY, JSON.stringify(mapApiKey.valueInString));
+    }
     this.httpClientService.setToken();
-    
+
     // localStorage.setItem(LOCALSTORAGE_KEY.LOG_OUT, this.userInfo.userDateFormat);
     // let objUser = {
     //   userId: this.userInfo.userId,

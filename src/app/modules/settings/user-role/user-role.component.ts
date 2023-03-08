@@ -5,20 +5,20 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef, GridOptions, Module, RowDragEndEvent } from 'ag-grid-community';
 import { RoutingHelper } from 'src/app/core/helpers/routing-helper';
 import { SweetAlertEnum, SweetAlertService } from 'src/app/core/helpers/sweet-alert.service';
-import { UserLevel } from 'src/app/core/models/settings/userLevel';
-import { UserLevelService } from 'src/app/core/services/settings/user-level.service';
+import { UserRole } from 'src/app/core/models/settings/userRole';
+import { UserRoleService } from 'src/app/core/services/settings/user-role.service';
 
-declare var $: any
+// declare var $: any
 @Component({
-  selector: 'app-user-level',
-  templateUrl: './user-level.component.html',
-  styleUrls: ['./user-level.component.scss']
+  selector: 'app-user-role',
+  templateUrl: './user-role.component.html',
+  styleUrls: ['./user-role.component.scss']
 })
 
 
-export class UserLevelComponent implements OnInit {
-  lstUserLevel: UserLevel[] = new Array<UserLevel>();
-  selectedUserLevel: UserLevel = new UserLevel();
+export class UserRoleComponent implements OnInit {
+  lstUserRole: UserRole[] = new Array<UserRole>();
+  selectedUserRole: UserRole = new UserRole();
 
 
   private gridApi;
@@ -39,7 +39,7 @@ export class UserLevelComponent implements OnInit {
 
 
   constructor(
-    private userLevelService: UserLevelService,
+    private userRoleService: UserRoleService,
     private swal: SweetAlertService,
     private router: Router,
     private modalService: NgbModal
@@ -50,26 +50,23 @@ export class UserLevelComponent implements OnInit {
   }
 
   getAll() {
-    this.userLevelService.getAll().subscribe(
+    this.userRoleService.getAll().subscribe(
       (res) => {
         if (res) {
-          this.lstUserLevel = Object.assign(this.lstUserLevel, res);
-          this.lstUserLevel = [...this.lstUserLevel];
+          this.lstUserRole = Object.assign(this.lstUserRole, res);
+          this.lstUserRole = [...this.lstUserRole];
           this.gridOptions.api.redrawRows();
         }
       }
     );
   }
   closeResult = '';
-  addUserLevel(content) {
-    this.selectedUserLevel = new UserLevel();
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+  addUserRole(content) {
+    this.selectedUserRole = new UserRole();
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', backdrop: 'static' }).result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
       },
-      // (reason) => {
-      //   this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      // },
     );
   }
   // private getDismissReason(reason: any): string {
@@ -85,10 +82,10 @@ export class UserLevelComponent implements OnInit {
   modalClose() {
     this.modalService.dismissAll();
   }
-  async saveUserLevel() {
+  async saveUserRole() {
     if (await this.swal.confirm_custom('Are you sure?', SweetAlertEnum.question, true, false)) {
-      if (this.selectedUserLevel.userLevelID > 0) {
-        this.userLevelService.updateUserLevel(this.selectedUserLevel).subscribe(
+      if (this.selectedUserRole.userRoleID > 0) {
+        this.userRoleService.updateUserRole(this.selectedUserRole).subscribe(
           (res) => {
             if (res) {
               this.modalClose();
@@ -99,7 +96,7 @@ export class UserLevelComponent implements OnInit {
         );
       }
       else {
-        this.userLevelService.saveUserLevel(this.selectedUserLevel).subscribe(
+        this.userRoleService.saveUserRole(this.selectedUserRole).subscribe(
           (res) => {
             if (res) {
               this.modalClose();
@@ -112,26 +109,23 @@ export class UserLevelComponent implements OnInit {
     }
   }
 
-  async editUserLevel(content) {
+  async editUserRole(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
       },
-      // (reason) => {
-      //   this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      // },
     );
 
   }
 
-  async deleteUserLevel() {
+  async deleteUserRole() {
     if (await this.swal.confirm_custom('Are you sure?', SweetAlertEnum.question, true, false)) {
-      this.userLevelService.deleteUserLevel(this.selectedUserLevel.userLevelID).subscribe(
+      this.userRoleService.deleteUserRole(this.selectedUserRole.userRoleID).subscribe(
         (res) => {
           if (res) {
-            this.lstUserLevel = this.lstUserLevel.filter(x => x.userLevelID != this.selectedUserLevel.userLevelID);
+            this.lstUserRole = this.lstUserRole.filter(x => x.userRoleID != this.selectedUserRole.userRoleID);
             this.gridOptions.api.redrawRows();
-            this.swal.message('User Level Deleted', SweetAlertEnum.success);
+            this.swal.message('User Role Deleted', SweetAlertEnum.success);
           }
         }
       );
@@ -139,13 +133,13 @@ export class UserLevelComponent implements OnInit {
   }
   async updateOrder() {
     if (await this.swal.confirm_custom('Are you sure?', SweetAlertEnum.question, true, false)) {
-      let dataLength = this.lstUserLevel.length;
+      let dataLength = this.lstUserRole.length;
       for (let i = 0; i < dataLength; i++) {
         let row = this.gridApi.getDisplayedRowAtIndex(i);
-        let dbData = this.lstUserLevel.find(x => x.userLevelID == row.data.userLevelID);
+        let dbData = this.lstUserRole.find(x => x.userRoleID == row.data.userRoleID);
         dbData.orderNo = i + 1;
       }
-      this.userLevelService.updateOrder(this.lstUserLevel).subscribe(
+      this.userRoleService.updateOrder(this.lstUserRole).subscribe(
         (res) => {
           if (res) {
             this.gridOptions.api.redrawRows();
@@ -178,16 +172,13 @@ export class UserLevelComponent implements OnInit {
   onSelect() {
     const selectedRows = this.gridApi.getSelectedRows();
     if (selectedRows && selectedRows.length == 1) {
-      this.selectedUserLevel = selectedRows[0];
+      this.selectedUserRole = selectedRows[0];
     }
     else {
-      this.selectedUserLevel = new UserLevel();
+      this.selectedUserRole = new UserRole();
     }
   }
 }
-
-
-
 
 
 const dataDefaultColDef: ColDef = {
@@ -202,7 +193,7 @@ const dataDefaultColDef: ColDef = {
 };
 const dataColumnDefs = [
   { field: 'slNo', headerName: 'SL', lockPosition: true, pinned: 'left', valueGetter: "node.rowIndex + 1", resizable: false, width: 80 },
-  { field: "userLevelName", headerName: 'User Level', },
+  { field: "userRoleName", headerName: 'User Role', },
   { field: "isActive", headerName: 'Is Active' },
   { field: "orderNo", headerName: 'Order' },
 ];

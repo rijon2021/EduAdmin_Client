@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <app-page-title title="User Information" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <app-page-title title="User Information"></app-page-title>
   <div class="row">
     <div class="col-lg-12">
       <div class="card">
@@ -26,8 +26,7 @@
                     <div class="col-md-9">
                       <select class="form-select" id="Organization" [(ngModel)]="objUser.organizationID">
                         <option value="0">Select</option>
-                        <option value="1">SWL</option>
-                        <option value="2">CDA</option>
+                        <option *ngFor="let oItem of lstOrganization" [value]="oItem.organizationID">{{oItem.organizationName}}</option>
                       </select>
                     </div>
                   </div>
@@ -72,10 +71,9 @@
                   <div class="mb-3 row">
                     <label for="UserRole" class="col-md-3 col-form-label">User Role</label>
                     <div class="col-md-9">
-                      <select class="form-select" id="UserRole" [(ngModel)]="objUser.roleID">
+                      <select class="form-select" id="UserRole" [(ngModel)]="objUser.userRoleID">
                         <option value="0">Select</option>
-                        <option value="1">Sr. Software Engineer</option>
-                        <option value="2">Front End Developer</option>
+                        <option *ngFor="let oItem of lstUserRole" [value]="oItem.userRoleID">{{oItem.userRoleName}}</option>
                       </select>
                     </div>
                   </div>
@@ -110,11 +108,11 @@
 
                 <div class="col-md-12">
                   <div class="mb-3 row">
-                    <label for="Status" class="col-md-3 col-form-label">Status</label>
+                    <label for="Status" class="col-md-3 col-form-label">Is Active</label>
                     <div class="col-md-9">
                       <select class="form-select" id="Status" [(ngModel)]="objUser.status">
                         <option value="0">Select</option>
-                        <option value="1">Active</option>
+                        <option value="1">Is Active</option>
                         <option value="2">In Active</option>
                         <option value="2">Blocked</option>
                       </select>
@@ -161,7 +159,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-12">
+                <!-- <div class="col-md-12">
                   <div class="mb-3 row">
                     <label for="Organization" class="col-md-3 col-form-label">Designation</label>
                     <div class="col-md-9">
@@ -172,7 +170,7 @@
                       </select>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <div class="col-md-12">
                   <div class="mb-3 row">
                     <label for="MobileNo" class="col-md-3 col-form-label">Mobile No</label>

@@ -19,6 +19,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { WidgetModule } from "../../shared/widget/widget.module";
 import { AgmCoreModule } from '@agm/core';
 import { GoogleComponent } from './google/google.component';
+import { environment } from 'src/environments/environment';
+
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -47,9 +49,11 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
         Ng2SmartTableModule,
         WidgetModule,
         AgmCoreModule.forRoot({
-          apiKey: 'AIzaSyBiols4lFvOc7_rGeOZVI6l-YE617w7xR0',
+          // apiKey: 'AIzaSyBiols4lFvOc7_rGeOZVI6l-YE617w7xR0',
+          apiKey: environment.MAP_API_KEY,
           libraries: ['places', 'drawing', 'geometry']
         }),
-    ]
+    ],
+    
 })
 export class FeatureModule { }

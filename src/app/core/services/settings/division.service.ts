@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClientService } from 'src/app/core/services/http-client.service';
 
 @Injectable()
-export class UserLevelService {
-  private controllerName = 'userLevel';
+export class DivisionService {
+  private controllerName = 'division';
   constructor(
     private httpClientService: HttpClientService
   ) { }
@@ -16,21 +16,37 @@ export class UserLevelService {
     let url = this.controllerName + '/getByID/' + userAutoID;
     return this.httpClientService.get(url);
   }
-  saveUserLevel(obj) {
+  save(obj) {
     let url = this.controllerName
     return this.httpClientService.postJson(url, obj);
   }
-  updateUserLevel(obj) {
+  update(obj) {
     let url = this.controllerName;
     return this.httpClientService.putJson(url, obj);
   }
-  deleteUserLevel(userAutoID: number) {
-    let url = this.controllerName + '?id=' + userAutoID;
+  delete(id: number) {
+    let url = this.controllerName + '?id=' + id;
     return this.httpClientService.delete(url);
   }
   updateOrder(obj) {
     let url = this.controllerName + '/updateOrder'
     return this.httpClientService.putJson(url, obj);
+  }
+  // getListByOrganization(id : number) {
+  //   let url = this.controllerName + '/getListByOrganization/' + id;
+  //   return this.httpClientService.get(url);
+  // }
+  search(obj){
+    let url = this.controllerName + '/search';
+    return this.httpClientService.postJson(url, obj);
+  }
+  getListByCountry(obj) {
+    let url = this.controllerName + '/getListByCountry/';
+    return this.httpClientService.postJson(url, obj);
+  }
+  getListByOrganizationID(organizationID: number) {
+    let url = this.controllerName + '/getListByOrganizationID/' + organizationID;
+    return this.httpClientService.get(url);
   }
 }
 

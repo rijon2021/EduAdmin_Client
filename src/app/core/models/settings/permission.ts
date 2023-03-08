@@ -4,7 +4,6 @@ export class Permission {
     permissionID: number;
     permissionName: string;
     displayName: string;
-    menuGroupID: number;
     parentPermissionID: number | null;
     isActive: boolean;
     iconName: string;
@@ -16,6 +15,10 @@ export class Permission {
     createdDate: string;
     updatedBy: number;
     updatedDate: string;
-    isCollapsed: boolean;
-    childList: Permission[];
+    isCollapsed: boolean = true;
+    childList: Permission[] = new Array<Permission>();
+    hasChild : boolean;
+    isChecked:boolean;
+    isVisited:boolean;
+    isLinkActive:boolean;
 }

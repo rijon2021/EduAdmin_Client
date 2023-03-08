@@ -29,9 +29,14 @@ export class UserService {
     let url = this.controllerName + '?id=' + userAutoID;
     return this.httpClientService.delete(url);
   }
-
   getAllByOrganizationID() {
     let url = this.controllerName + '/getAllByOrganizationID';
     return this.httpClientService.get(url);
   }
+  getInitialData() {
+    let url = this.controllerName + '/getInitialData';
+    return this.httpClientService.get(url);
+  }
+
+  
 }

@@ -4,7 +4,9 @@ import { Subscription } from 'rxjs';
 import { ReturnStatus } from 'src/app/core/enums/globalEnum';
 import { RoutingHelper } from 'src/app/core/helpers/routing-helper';
 import { SweetAlertEnum, SweetAlertService } from 'src/app/core/helpers/sweet-alert.service';
+import { Organization } from 'src/app/core/models/data/organization';
 import { ResponseMessage } from 'src/app/core/models/responseMessage';
+import { UserRole } from 'src/app/core/models/settings/userRole';
 import { Users } from 'src/app/core/models/settings/users';
 import { UserService } from 'src/app/core/services/settings/user.service';
 
@@ -20,10 +22,11 @@ import { UserService } from 'src/app/core/services/settings/user.service';
 export class UserCreateComponent implements OnInit {
   // bread crumb items
   private routeSub: Subscription;
-  breadCrumbItems: Array<{}>;
 
   public objUser: Users = new Users();
   public imageURL: string;
+  lstOrganization: Organization[] = new Array<Organization>();
+  lstUserRole: UserRole[] = new Array<UserRole>();
 
   constructor(
     public userService: UserService,
@@ -33,7 +36,7 @@ export class UserCreateComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Tables' }, { label: 'Basic Tables', active: true }];
+    this.getInitialData();
     this.routeSub = this.route.params.subscribe(params => {
       const userAutoID = parseInt(params['userID']);
       if (userAutoID) {
@@ -45,14 +48,19 @@ export class UserCreateComponent implements OnInit {
   ngOnDestroy() {
     this.routeSub.unsubscribe();
   }
+  getInitialData() {
+    this.userService.getInitialData().subscribe((res: ResponseMessage) => {
+      if (res) {
+        this.lstOrganization = res.responseObj.lstOrganization;
+        this.lstUserRole  = res.responseObj.lstUserRole ;
+      }
+    })
+  }
   getByID(userID: number) {
     this.userService.getByID(userID).subscribe((res: Users) => {
       if (res && res.userAutoID > 0) {
         this.objUser = res;
       }
-      // console.log(res.responseObj);
-      // this.userService.SaveUser(this.objUser).subscribe(response : ResponseMessage) => {
-
     })
   }
   async saveUser() {
@@ -61,7 +69,7 @@ export class UserCreateComponent implements OnInit {
           (res: Users) => {
           if(res && res.userAutoID > 0){
             this.swal.message('Data Updated Successfully', SweetAlertEnum.success);
-            RoutingHelper.navigate([], ['settings', 'user', 'user-list']);
+            RoutingHelper.navigate2([], ['settings', 'user', 'user-list'], this.router);
           }
         },
         (error) => {

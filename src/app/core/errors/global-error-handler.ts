@@ -1,21 +1,24 @@
 import { HttpErrorResponse } from "@angular/common/http";
-import { ErrorHandler, Injectable, NgZone } from "@angular/core";
+import { ErrorHandler, Injectable, Injector, NgZone } from "@angular/core";
 import { SweetAlertEnum, SweetAlertService } from "../helpers/sweet-alert.service";
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
-    constructor(
-        private zone: NgZone,
-        private swal: SweetAlertService
-    ) { }
+  constructor(
+    private swal: SweetAlertService,
+    private zone: NgZone,
+    private injector: Injector
+  ) { }
 
-    handleError(error: any) {
-        if (!(error instanceof HttpErrorResponse)) {
-            error = error.rejection; // get the error object
-          }
-        // if (error) {
-        //     this.swal.message(error, SweetAlertEnum.error);
-        // }
-
+  handleError(error: any): void {
+    // Check if it's an error from an HTTP response
+    if (!(error instanceof HttpErrorResponse)) {
+      error = error.rejection; // get the error object
     }
+    // this.zone.run(() =>
+    //   this.swal.message(error?.message || 'Undefined client error' + 'G-001', SweetAlertEnum.error)
+    // );
+
+    console.error('Error from global error handler', error);
+  }
 }

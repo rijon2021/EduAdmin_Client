@@ -8,6 +8,10 @@ import { HttpClient } from '@angular/common/http';
 import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { TranslateService } from '@ngx-translate/core';
+import { LOCALSTORAGE_KEY } from 'src/app/core/models/localstorage-item';
+import { Permission } from 'src/app/core/models/settings/permission';
+import { RoutingHelper } from 'src/app/core/helpers/routing-helper';
+import { PermissionType } from 'src/app/core/enums/globalEnum';
 
 @Component({
   selector: 'app-sidebar',
@@ -25,7 +29,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   data: any;
 
   menuItems = [];
-
+  lstmenuItems: Permission[] = new Array<Permission>();
   @ViewChild('sideMenu') sideMenu: ElementRef;
 
   constructor(private eventService: EventService, private router: Router, public translate: TranslateService, private http: HttpClient) {
@@ -34,12 +38,79 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
         this._activateMenuDropdown();
         this._scrollElement();
       }
-    });
+    });   
   }
 
   ngOnInit() {
     this.initialize();
     this._scrollElement();
+    this.lstmenuItems = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY.PERMISSIONS));
+    // this.lstmenuItems = this.lstmenuItems.filter(x => x.permissionID != 1);
+    this.lstmenuItems = this.lstmenuItems.filter(x => x.permissionType == PermissionType.Menu);
+    this.lstmenuItems.forEach(x => {
+      x.isCollapsed = true;
+    });
+    this.list_to_tree(this.lstmenuItems);
+    this.lstmenuItems = this.lstmenuItems.filter(x => x.parentPermissionID == 1);
+    // console.log('this.lstmenuItems', this.lstmenuItems);
+
+    // this.lstmenuItems[0].isCollapsed = false;
+  }
+
+
+  list_to_tree(list: Permission[]) {
+    var map = {}, node: Permission, roots = [], i;
+    for (i = 0; i < list.length; i += 1) {
+      map[list[i].permissionID] = i;
+      list[i].childList = [];
+    }
+
+    for (i = 0; i < list.length; i += 1) {
+      node = list[i];
+      if (node.parentPermissionID !== 0 && list[map[node.parentPermissionID]]) {
+        list[map[node.parentPermissionID]].childList.push(node);
+      } else {
+        roots.push(node);
+      }
+    }
+    return roots;
+  }
+  selectedPermission: Permission;
+  onToggle(oItem: Permission) {
+    if(this.selectedPermission){
+      this.selectedPermission.isLinkActive = false
+    }
+    if(oItem.hasChild){
+      oItem.isCollapsed = !oItem.isCollapsed;
+    }
+    else{
+      oItem.isCollapsed = false;
+    }
+    if (oItem.routePath && oItem.routePath.trim().length > 0 && oItem.permissionType == PermissionType.Menu) {
+      localStorage.setItem(LOCALSTORAGE_KEY.ACTIVE_PERMISSION_ID, oItem.permissionID.toString());
+
+      oItem.isLinkActive = true;
+      this.selectedPermission = oItem;
+      RoutingHelper.navigate2([], [oItem.routePath], this.router);
+    }
+  }
+
+
+  //==============Custome Menu Code
+  collapseToggle(oItem: Permission) {
+    oItem.isCollapsed = !oItem.isCollapsed;
+    if (oItem.isCollapsed) {
+      oItem.childList = [];
+    }
+    else {
+      oItem.childList = this.lstmenuItems.filter(x => x.parentPermissionID == oItem.permissionID);
+      if (oItem.childList.length == 0) {
+        oItem.isCollapsed = true;
+      }
+    }
+    if (oItem.routePath) {
+      RoutingHelper.navigate2([], [oItem.routePath], this.router);
+    }
   }
 
   ngAfterViewInit() {
@@ -65,9 +136,9 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
       if (document.getElementsByClassName("mm-active").length > 0) {
         const currentPosition = document.getElementsByClassName("mm-active")[0]['offsetTop'];
         if (currentPosition > 500)
-        if(this.scrollRef.SimpleBar !== null)
-          this.scrollRef.SimpleBar.getScrollElement().scrollTop =
-            currentPosition + 300;
+          if (this.scrollRef.SimpleBar !== null)
+            this.scrollRef.SimpleBar.getScrollElement().scrollTop =
+              currentPosition + 300;
       }
     }, 300);
   }

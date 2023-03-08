@@ -3,7 +3,6 @@ export class Users {
     userID: string;
     userTypeID: number;
     organizationID: number;
-    designationID: number;
     userFullName: string;
     mobileNo: string;
     address: string;
@@ -11,7 +10,7 @@ export class Users {
     passwordExpiryDate: string | null;
     status: number;
     email: string;
-    roleID: number;
+    userRoleID: number;
     userImage: string;
     logo: string;
     // note: string;

@@ -1,3 +1,5 @@
+import { GlobalSetting } from "./settings/globalSetting";
+
 export class AuthUser {
     userAutoID: number;
     userID: string;
@@ -5,10 +7,11 @@ export class AuthUser {
     organizationID: number;
     designationID: number;
     userFullName: string;
-    roleID: number;
+    userRoleID: number;
     tokenResult: TokenResult;
-    permissions : [];
-    password : string;
+    permissions: [];
+    globalSettings: GlobalSetting[];
+    password: string;
 }
 export class TokenResult {
     access_token: string;

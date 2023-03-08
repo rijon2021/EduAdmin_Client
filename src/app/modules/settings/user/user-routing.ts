@@ -4,12 +4,8 @@ import { UserCreateComponent } from './user-create/user-create.component';
 import { UserListComponent } from './user-list/user-list.component';
 
 const routes: Routes = [
-    {
-        path: 'user-create/:userID', component: UserCreateComponent
-    },
-    {
-        path: 'user-list', component: UserListComponent
-    }
+    { path: 'user-create/:userID', component: UserCreateComponent },
+    { path: 'user-list', component: UserListComponent }
 
 ];
 

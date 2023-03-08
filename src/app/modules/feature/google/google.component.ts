@@ -22,15 +22,10 @@ export class GoogleComponent implements OnInit {
   @ViewChild('streetviewPano', { static: true }) streetviewPano: any;
 
   // bread crumb items
-  breadCrumbItems: Array<{}>;
   constructor(@Inject(PLATFORM_ID) private platformId: any, private mapsAPILoader: MapsAPILoader) { }
 
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Maps' }, { label: 'Google Maps', active: true }];
-    /**
-     * fetches data
-     */
     this._fetchData();
   }
 
