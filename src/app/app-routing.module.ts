@@ -14,7 +14,7 @@ const routes: Routes = [
   // { path: 'dashboard', component: LayoutComponent, loadChildren: () => import('./modules/feature/dashboard/dashboards.module').then(m => m.DashboardsModule), canActivate: [AuthGuard] },
   { path: '', component: LayoutComponent, loadChildren: () => import('./modules/feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] },
   { path: 'settings', component: LayoutComponent, loadChildren: () => import('./modules/settings/settings.module').then(m => m.SettingsModule), canActivate: [AuthGuard] },
-  { path: 'feature', component: LayoutComponent, loadChildren: () => import('./modules/feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] },
+  { path: 'feature', component: LayoutComponent, loadChildren: () => import('./modules/feature/feature.module').then(m => m.FeatureModule) },
   // { path: 'pages', loadChildren: () => import('./extrapages/extrapages.module').then(m => m.ExtrapagesModule), canActivate: [AuthGuard] },
   // { path: 'crypto-ico-landing', component: CyptolandingComponent },
   // { path: '**', component: Page404Component },

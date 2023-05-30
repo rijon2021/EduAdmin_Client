@@ -20,7 +20,7 @@ export class AuthfakeauthenticationService {
     }
 
     login(obj : any): Observable<any> {
-        let url = 'Authenticate/authenticate';
+        let url = 'Users/Login';
         return this.httpClientService.postToAuth(url, obj);
     }
     logout() {

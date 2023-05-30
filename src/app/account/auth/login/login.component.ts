@@ -73,24 +73,13 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     let user = new AuthUser();
-    user.userID = this.f.email.value;
+    user.userName = this.f.email.value;
     user.password = this.f.password.value;
     this.authFackservice.login(user).pipe(first()).subscribe(
-      (res: ResponseMessage) => {
-        if (res.responseObj) {
-          if (res.statusCode == ReturnStatus.Success) {
-            let tokenResult: TokenResult = res.responseObj.tokenResult;
-            if (tokenResult.access_token && tokenResult.statusCode == 200) {
-              this.setLoginInformation(res);
-              RoutingHelper.navigate2([], ['feature/dashboard'], this.router);
-            }
-            else {
-              this.swal.message('No Token Found', SweetAlertEnum.error);
-            }
-          }
-          else {
-            this.swal.message(res.message, SweetAlertEnum.error);
-          }
+      (res) => {
+        if (res) {
+            this.setLoginInformation(res);
+            RoutingHelper.navigate2([], ['feature/dashboard'], this.router);
         }
         else {
           this.swal.message(res.message, SweetAlertEnum.error);
@@ -101,26 +90,27 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  setLoginInformation(response: ResponseMessage) {
+  setLoginInformation(response) {
     // localStorage.clear();
-    let authUser: AuthUser = response.responseObj;
-    let tokenResult: TokenResult = response.responseObj.tokenResult;
-    localStorage.setItem(LOCALSTORAGE_KEY.ACCESS_TOKEN, tokenResult.access_token);
-    localStorage.setItem(LOCALSTORAGE_KEY.USER_ID, authUser.userID);
-    localStorage.setItem(LOCALSTORAGE_KEY.USER_AUTO_ID, authUser.userAutoID.toString());
-    localStorage.setItem(LOCALSTORAGE_KEY.USER_TYPE_ID, authUser.userTypeID.toString());
-    localStorage.setItem(LOCALSTORAGE_KEY.ORGANIZATION_ID, authUser.organizationID.toString());
-    localStorage.setItem(LOCALSTORAGE_KEY.DESIGNATION_ID, authUser.designationID.toString());
-    localStorage.setItem(LOCALSTORAGE_KEY.USER_FULL_NAME, authUser.userFullName);
-    localStorage.setItem(LOCALSTORAGE_KEY.ROLE_ID, authUser.userRoleID.toString());
-    localStorage.setItem(LOCALSTORAGE_KEY.PERMISSIONS, JSON.stringify(authUser.permissions));
-    localStorage.setItem(LOCALSTORAGE_KEY.GLOBAL_SETTINGS, JSON.stringify(authUser.globalSettings));
-    let globalSetting: GlobalSetting[] = authUser.globalSettings;
-    let mapApiKey = globalSetting.find(x => x.globalSettingID == GlobalSettingEnum.Google_Map_Key && x.isActive == true);
-    if (mapApiKey != null || mapApiKey != undefined) {
-      localStorage.setItem(LOCALSTORAGE_KEY.GOOGLE_MAP_API_KEY, JSON.stringify(mapApiKey.valueInString));
-    }
-    this.httpClientService.setToken();
+    let authUser: AuthUser = response;
+    // let tokenResult: TokenResult = response.responseObj.tokenResult;
+    localStorage.setItem(LOCALSTORAGE_KEY.OBJ_TOTAL, response);
+    localStorage.setItem(LOCALSTORAGE_KEY.ACCESS_TOKEN, '0CFDG1B/XX6Ze4WiPBRi/w==');
+    localStorage.setItem(LOCALSTORAGE_KEY.USER_ID, authUser.userName);
+    localStorage.setItem(LOCALSTORAGE_KEY.USER_AUTO_ID, authUser.userId.toString());
+    // localStorage.setItem(LOCALSTORAGE_KEY.USER_TYPE_ID, authUser.userTypeID.toString());
+    // localStorage.setItem(LOCALSTORAGE_KEY.ORGANIZATION_ID, authUser.organizationID.toString());
+    // localStorage.setItem(LOCALSTORAGE_KEY.DESIGNATION_ID, authUser.designationID.toString());
+    localStorage.setItem(LOCALSTORAGE_KEY.USER_FULL_NAME, authUser.studentName);
+    // localStorage.setItem(LOCALSTORAGE_KEY.ROLE_ID, authUser.userRoleID.toString());
+    // localStorage.setItem(LOCALSTORAGE_KEY.PERMISSIONS, JSON.stringify(authUser.permissions));
+    // localStorage.setItem(LOCALSTORAGE_KEY.GLOBAL_SETTINGS, JSON.stringify(authUser.globalSettings));
+    // let globalSetting: GlobalSetting[] = authUser.globalSettings;
+    // let mapApiKey = globalSetting.find(x => x.globalSettingID == GlobalSettingEnum.Google_Map_Key && x.isActive == true);
+    // if (mapApiKey != null || mapApiKey != undefined) {
+    //   localStorage.setItem(LOCALSTORAGE_KEY.GOOGLE_MAP_API_KEY, JSON.stringify(mapApiKey.valueInString));
+    // }
+    // this.httpClientService.setToken();
 
     // localStorage.setItem(LOCALSTORAGE_KEY.LOG_OUT, this.userInfo.userDateFormat);
     // let objUser = {

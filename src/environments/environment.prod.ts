@@ -1,4 +1,4 @@
-const api_endpoint = 'http://10.1.0.12:8024/api/';
+const api_endpoint = 'https://admin.islampurcollege.edu.bd/api/';
 export const environment = {
   production: true,
   baseUrl: api_endpoint,

@@ -40,7 +40,7 @@
 
                 <div class="mb-3">
                   <label for="email">Username</label>
-                  <input type="email" formControlName="email" class="form-control" id="email" placeholder="Email"
+                  <input type="text" formControlName="email" class="form-control" id="email" placeholder="Email"
                     [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
                   <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                     <div *ngIf="f.email.errors.required">User ID is required</div>

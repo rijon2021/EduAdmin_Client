@@ -2,11 +2,12 @@ import { GlobalSetting } from "./settings/globalSetting";
 
 export class AuthUser {
     userAutoID: number;
-    userID: string;
+    userId: string;
+    userName: string;
     userTypeID: number;
     organizationID: number;
     designationID: number;
-    userFullName: string;
+    studentName: string;
     userRoleID: number;
     tokenResult: TokenResult;
     permissions: [];
@@ -15,8 +16,8 @@ export class AuthUser {
 }
 export class TokenResult {
     access_token: string;
-    expiration: string | null;
-    userEmail: string;
-    statusCode: number;
-    message: string;
+    // expiration: string | null;
+    // userEmail: string;
+    // statusCode: number;
+    // message: string;
 }

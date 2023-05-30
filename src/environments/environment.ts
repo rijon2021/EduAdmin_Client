@@ -1,7 +1,7 @@
 // const api_endpoint = 'http://10.1.0.12:8024/api/' 
 import * as CryptoJS from 'crypto-js';
 import { LOCALSTORAGE_KEY } from 'src/app/core/models/localstorage-item';
-const api_endpoint = 'http://localhost:56006/api/';
+const api_endpoint = 'https://admin.islampurcollege.edu.bd/api/';
 
 // var secretKey = 'my-secret-key';
 
