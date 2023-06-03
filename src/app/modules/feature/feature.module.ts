@@ -20,6 +20,8 @@ import { WidgetModule } from "../../shared/widget/widget.module";
 import { AgmCoreModule } from '@agm/core';
 import { GoogleComponent } from './google/google.component';
 import { environment } from 'src/environments/environment';
+import { AgGridModule } from 'ag-grid-angular';
+import { PaymentsComponent } from './payments/payments.component';
 
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -29,9 +31,10 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
 ]);
 
 @NgModule({
-    declarations: [DashboardComponent, GoogleComponent],
+    declarations: [DashboardComponent, GoogleComponent, PaymentsComponent],
     imports: [
         CommonModule,
+        AgGridModule,
         FormsModule,
         NgbDropdownModule,
         NgbModalModule,

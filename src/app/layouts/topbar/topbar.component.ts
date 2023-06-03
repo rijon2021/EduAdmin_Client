@@ -8,6 +8,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { LanguageService } from '../../core/services/language.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SweetAlertEnum, SweetAlertService } from 'src/app/core/helpers/sweet-alert.service';
+import { LOCALSTORAGE_KEY } from 'src/app/core/models/localstorage-item';
 
 @Component({
   selector: 'app-topbar',
@@ -19,6 +20,7 @@ import { SweetAlertEnum, SweetAlertService } from 'src/app/core/helpers/sweet-al
  * Topbar component
  */
 export class TopbarComponent implements OnInit {
+  userFullName: string; 
 
   element;
   cookieValue;
@@ -52,6 +54,8 @@ export class TopbarComponent implements OnInit {
   ngOnInit() {
     this.openMobileMenu = false;
     this.element = document.documentElement;
+
+    this.userFullName = localStorage.getItem(LOCALSTORAGE_KEY.USER_FULL_NAME);
 
     this.cookieValue = this._cookiesService.get('lang');
     const val = this.listLang.filter(x => x.lang === this.cookieValue);

@@ -7,42 +7,31 @@
 
     <!-- Left Menu Start -->
     <ul class="metismenu list-unstyled" id="side-menu" #sideMenu>
-
+      <li class="mt-3"></li>
+      <li><a routerLink="/feature/payments"><i class="mdi mdi-dashboard"></i> Payment</a></li>
       <!-- {{menuItems}} -->
-      <!-- Node Tree Container -->
-      <li><a href="">fdsfdsf</a></li>
-      <ng-container *ngFor="let node of lstmenuItems" [ngTemplateOutlet]="treeNode"
+      <!-- Dynamic Menu Node Tree Container -->
+
+      <!-- <ng-container *ngFor="let node of lstmenuItems" [ngTemplateOutlet]="treeNode"
         [ngTemplateOutletContext]="{ $implicit: node }">
       </ng-container>
       <ng-template #treeNode let-data>
         <li>
-          <a  (click)="onToggle(data)" href="javascript:void(0);" class="is-parent" 
+          <a (click)="onToggle(data)" href="javascript:void(0);" class="is-parent"
             [ngClass]="{'has-arrow': !data.isCollapsed, 'has-dropdown': data.hasChild==true, 'link-active': data.isLinkActive==true}">
             <i class="bx {{data.iconName}}" *ngIf="data.iconName"></i>
             <span> {{ data.displayName}}</span>
-            <!-- <span class="badge rounded-pill float-end bg-{{data.badge.variant}}" *ngIf="data.isCollapsed">{{data.badge.text |
-            translate}}</span> -->
           </a>
-
-          <!-- <a (click)="onToggle(data)" class="side-nav-link-ref"
-            routerLinkActive="active">
-            <i class="bx {{ data.iconName }}" *ngIf="data.iconName"></i>
-            <span> {{ data.displayName }}</span>
-            <span class="badge rounded-pill bg-{{data.badge.variant}} float-end" *ngIf="data.badge">{{data.badge.text
-              |
-              translate}}</span>
-          </a> -->
         </li>
         <ng-container *ngIf="data.childList">
           <ul *ngIf="!data.isCollapsed">
-              <ng-container *ngFor="let child of data.childList" [ngTemplateOutlet]="treeNode"
-                  [ngTemplateOutletContext]="{ $implicit: child }">
-              </ng-container>
+            <ng-container *ngFor="let child of data.childList" [ngTemplateOutlet]="treeNode"
+              [ngTemplateOutletContext]="{ $implicit: child }">
+            </ng-container>
           </ul>
-      </ng-container>
+        </ng-container>
       </ng-template>
-      <!-- Node Tree Container -->
-<!-- 
+
       <ng-container *ngFor="let item1 of lstmenuItems; let first = first;">
         <li class="menu-title" *ngIf="first">Menu</li>
         <li>
@@ -82,11 +71,11 @@
             </li>
           </ul>
         </li>
-      </ng-container> -->
+      </ng-container> 
+        -->
     </ul>
   </div>
 </ng-template>
-<!-- Sidebar -->
 
 <div class="vertical-menu">
   <ngx-simplebar class="h-100" #componentRef>
