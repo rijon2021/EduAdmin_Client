@@ -3,6 +3,7 @@ import { GlobalSetting } from "./settings/globalSetting";
 export class AuthUser {
     userAutoID: number;
     userId: string;
+    studentId: string;
     userName: string;
     userTypeID: number;
     organizationID: number;

@@ -97,6 +97,7 @@ export class LoginComponent implements OnInit {
     localStorage.setItem(LOCALSTORAGE_KEY.OBJ_TOTAL, response);
     localStorage.setItem(LOCALSTORAGE_KEY.ACCESS_TOKEN, '0CFDG1B/XX6Ze4WiPBRi/w==');
     localStorage.setItem(LOCALSTORAGE_KEY.USER_ID, authUser.userName);
+    localStorage.setItem(LOCALSTORAGE_KEY.STUDENT_ID, authUser.studentId);
     localStorage.setItem(LOCALSTORAGE_KEY.USER_AUTO_ID, authUser.userId.toString());
     // localStorage.setItem(LOCALSTORAGE_KEY.USER_TYPE_ID, authUser.userTypeID.toString());
     // localStorage.setItem(LOCALSTORAGE_KEY.ORGANIZATION_ID, authUser.organizationID.toString());
