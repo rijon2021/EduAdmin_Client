@@ -18,10 +18,10 @@ import { FeatureRoutingModule } from './feature-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { WidgetModule } from "../../shared/widget/widget.module";
 import { AgmCoreModule } from '@agm/core';
-import { GoogleComponent } from './google/google.component';
 import { environment } from 'src/environments/environment';
 import { AgGridModule } from 'ag-grid-angular';
 import { PaymentsComponent } from './payments/payments.component';
+import { SubjectChoiceComponent } from './subject-choice/subject-choice.component';
 
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -31,7 +31,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
 ]);
 
 @NgModule({
-    declarations: [DashboardComponent, GoogleComponent, PaymentsComponent],
+    declarations: [DashboardComponent, PaymentsComponent,SubjectChoiceComponent],
     imports: [
         CommonModule,
         AgGridModule,

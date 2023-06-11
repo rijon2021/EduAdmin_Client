@@ -90,11 +90,11 @@ const dataDefaultColDef: ColDef = {
 };
 const dataColumnDefs = [
   { isVisible: true, field: 'slNo', headerName: 'SL', lockPosition: true, pinned: 'left', suppressMovable: true, valueGetter: "node.rowIndex + 1", resizable: false, width: 80 },
-  { isVisible: true, field: "studentId", headerName: 'Student ID', lockPosition: true, pinned: 'left', suppressMovable: false },
+  { isVisible: true, field: "studentId", headerName: 'Student ID'},
   { isVisible: true, field: "orderNo", headerName: 'Invoice No' },
   { isVisible: true, field: "batchName", headerName: 'Batch Name' },
   { isVisible: true, field: "feeCategory", headerName: 'Fee Category' },
   { isVisible: true, field: "paidAmount", headerName: 'Paid Amount', type: 'centerAligned' },
-  { isVisible: true, field: "paymentDate", headerName: 'Date of Payment', headerClass: 'ag-grid-text-center', cellStyle: { textAlign: 'center' } },
+  { isVisible: true, field: "paymentDate", headerName: 'Date of Payment', headerClass: 'ag-grid-text-center',cellRenderer: (data) => { return data.value ? (new Date(data.value)).toLocaleDateString() : ''; }, cellStyle: { textAlign: 'center' } },
 
 ];
