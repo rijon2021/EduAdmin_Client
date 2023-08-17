@@ -1,15 +1,132 @@
+<!-- ==========Country Add Modal======== -->
+
+<ng-template #viewPaymentModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Payment Invoice</h4>
+  </div>
+  <div class="modal-body">
+    <main style=" margin: 0 auto; padding: 10px;background-color: #fff;" id="printtable">
+      <div class="payment-info-section">
+        <header class="payment-header" style="margin: 5px 0;padding: 10px;">
+          <!-- <div class="text-center">
+              <h3 style="font-size: 24px">Payment Information</h3>
+          </div> -->
+          <table style="width: 100%">
+            <tbody>
+              <tr>
+                <td style="width: 120px">
+                  <img style="height: 100px;" src="https://islampurcollege.edu.bd/websitedesign/assets/images/logo.png">
+
+                </td>
+                <td style="padding-left: 10px;">
+                  <h2 style="margin: 0;font-size: 24px;text-transform: uppercase;font-weight: 600;color: #000;">Govt.
+                    Islampur
+                    College</h2>
+                  <p style="margin-bottom: 0;font-size: 18px;">Islampur, Jamalpur</p>
+                </td>
+                <td style="text-align: right">
+                  <h3 style="color: #2040fa;font-size: 18px;">Invoice No: <span id="lblInvoiceNo">{{selectedPayment.orderNo}}</span>
+                    (<span style="color: #153df1;">PAID</span>)
+                  </h3>
+                  <p><strong>Date of Payment:</strong> <span id="lblDateOfPayment"> {{selectedPayment.paymentDate}}</span></p>
+
+
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </header>
+
+        <section>
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <th style="width: 120px;"><span id="lblAdmissionNoHead">Admission No</span></th>
+                <td style="width: 5px;">:</td>
+                <td><span id="lblAdmissionNo">{{studentId}}</span></td>
+                <th style="width: 60px;">Name</th>
+                <td style="width: 5px;">:</td>
+                <td><span id="lblStudentName">{{studentName}}</span></td>
+                <th style="width: 120px;">Class</th>
+                <td style="width: 5px;">:</td>
+                <td><span id="lblClass">{{selectedPayment.batchName}}</span></td>
+              </tr>
+              <tr>
+                <th style="width: 60px;">Group</th>
+                <td style="width: 5px;">:</td>
+                <td><span id="lblGroup">{{selectedPayment.groupName}}</span></td>
+                <th style="width: 60px;">Session</th>
+                <td style="width: 5px;">:</td>
+                <td><span id="lblYear">{{selectedPayment.sessionYear}}</span></td>
+                <th style="width: 120px;">Class Roll</th>
+                <td style="width: 5px;">:</td>
+                <td><span id="lblClassRoll">{{selectedPayment.classRoll}}</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section>
+          <div id="divParticularCategoryList">
+
+
+            <div style="margin-bottom: 10px;"><strong>Fee Category:</strong> {{selectedPayment.feeCategory}}
+              </div>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th class="per70 text-center">Description</th>
+                  <th class="per25 text-right" style="width: 30%;">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td> {{selectedPayment.particularName}}</td>
+                  <td class="text-right">{{selectedPayment.particularAmount}}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th class="text-right">Sub Total</th>
+                  <th class="text-right">{{selectedPayment.paidAmount}} Tk</th>
+                </tr>
+                <tr>
+                  <th class="text-right">Discount</th>
+                  <th class="text-right">0 TK</th>
+                </tr>
+                <tr>
+                  <th class="text-right">Total</th>
+                  <th class="text-right">{{selectedPayment.paidAmount}} TK</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+        </section>
+      </div>
+    </main>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" onclick="printReport()"><i class="fas fa-times"></i>
+      Close</button>
+    <button type="button" class="btn btn-danger" (click)="modalClose()"><i class="fas fa-times"></i>
+      Close</button>
+  </div>
+</ng-template>
+
 <div class="container-fluid">
   <app-page-title title="User List"></app-page-title>
   <div class="row">
     <div class="col-md-12">
       <div class="text-end">
-        <button class="btn btn-info" *ngIf=""><i class="fa fa-print"></i> Print Invoice</button>
+        <button class="btn btn-info" *ngIf="selectedPayment.orderNo" (click)="viewPayment()"><i class="fa fa-print"></i>
+          Print Invoice</button>
         <button class="btn btn-info ms-2"><i class="fa fa-print"></i> Print List</button>
       </div>
     </div>
   </div>
   <div class="row mt-2">
-    
+
     <div class="col-md-12">
       <ag-grid-angular style="width: 100%; height: 75vh;" class="ag-theme-alpine" [rowData]="lstPayment"
         [columnDefs]="columnDefs" [gridOptions]="gridOptions" (selectionChanged)="onSelect()"

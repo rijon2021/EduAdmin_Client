@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import { SweetAlertService } from 'src/app/core/helpers/sweet-alert.service';
 import { Payments } from 'src/app/core/models/core/payments';
 import { LOCALSTORAGE_KEY } from 'src/app/core/models/localstorage-item';
 import { PaymentsService } from 'src/app/core/services/payments.service';
-
+declare var $;
 
 @Component({
   selector: 'app-payments',
@@ -12,16 +13,22 @@ import { PaymentsService } from 'src/app/core/services/payments.service';
   styleUrls: ['./payments.component.css']
 })
 export class PaymentsComponent implements OnInit {
+
+  @ViewChild("viewPaymentModal") viewPaymentModal: TemplateRef<any>;
+  
   studentId:string;
+  studentName:string;
   rowData:any;
   lstPayment:any;
   selectedPayment: Payments = new Payments();
   constructor(
-    private paymentsService: PaymentsService
+    private paymentsService: PaymentsService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit() {
     this.studentId = localStorage.getItem(LOCALSTORAGE_KEY.STUDENT_ID);
+    this.studentName = localStorage.getItem(LOCALSTORAGE_KEY.USER_FULL_NAME);
     this.getPayments();
 
   }
@@ -30,9 +37,18 @@ export class PaymentsComponent implements OnInit {
     this.paymentsService.getPayments(this.studentId).subscribe(
       (res)=>{
         this.lstPayment = res;
+        
       }
-      
     )
+  }
+  viewPayment(){
+    if(this.selectedPayment.orderNo){
+    this.modalService.open(this.viewPaymentModal, { size: 'xl', backdrop: 'static' });
+    }
+  }
+  modalClose(){
+    this.modalService.dismissAll(this.viewPaymentModal);
+    
   }
 
   private gridApi;

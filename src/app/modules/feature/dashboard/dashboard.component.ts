@@ -4,6 +4,7 @@ import { ChartType } from './dashboard.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfigService } from 'src/app/core/services/config.service';
 import { EventService } from 'src/app/core/services/event.service';
+import { LOCALSTORAGE_KEY } from 'src/app/core/models/localstorage-item';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,7 +19,8 @@ export class DashboardComponent implements OnInit {
   monthlyEarningChart: ChartType;
   transactions: Array<[]>;
   statData: Array<[]>;
-
+  userFullName:string;
+  studentID:string;
   isActive: string;
 
   @ViewChild('content') content;
@@ -30,6 +32,8 @@ export class DashboardComponent implements OnInit {
     /**
      * horizontal-vertical layput set
      */
+    this.userFullName = localStorage.getItem(LOCALSTORAGE_KEY.USER_FULL_NAME);
+    this.studentID = localStorage.getItem(LOCALSTORAGE_KEY.STUDENT_ID);
      const attribute = document.body.getAttribute('data-layout');
 
      this.isVisible = attribute;
