@@ -2,72 +2,7 @@
   <app-page-title title="Subject Choice"></app-page-title>
   <div class="row">
     <div class="col-lg-12">
-      <div class="completed-subject-list">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title mb-2">Completed Course</h4>
-                <div class="table-responsive mb-0">
-                  <table class="table table-centered table-nowrap">
-                    <thead class="table-light">
-                      <tr>
-                        <th class="align-middle">SN</th>
-                        <th class="align-middle">Class</th>
-                        <th class="align-middle">Subject Name</th>
-                        <th class="align-middle">Subject Code</th>
-                        <th class="align-middle">Total Mark</th>
-                        <th class="align-middle">Pass Mark</th>
-                        <th class="align-middle">Result Mark</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Eleven</td>
-                        <td>Bangla 1st Paper</td>
-                        <td class="align-middle">101</td>
-                        <td class="align-middle">100</td>
-                        <td class="align-middle">33</td>
-                        <td class="align-middle">65</td>
-                      </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>Eleven</td>
-                        <td>Bangla 2nd Paper</td>
-                        <td class="align-middle">102</td>
-                        <td class="align-middle">100</td>
-                        <td class="align-middle">33</td>
-                        <td class="align-middle">62</td>
-                      </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>Eleven</td>
-                        <td>English 1st Paper</td>
-                        <td class="align-middle">103</td>
-                        <td class="align-middle">100</td>
-                        <td class="align-middle">33</td>
-                        <td class="align-middle">75</td>
-                      </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>Eleven</td>
-                        <td>English 2nd Paper</td>
-                        <td class="align-middle">104</td>
-                        <td class="align-middle">100</td>
-                        <td class="align-middle">33</td>
-                        <td class="align-middle">79</td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                </div>
-                <!-- end table -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      
       <div class="completed-subject-list">
         <div class="row">
           <div class="col-lg-12">
@@ -88,59 +23,17 @@
                             <tr>
                               <td>
                                 <table style="width:100%" class="no">
-                                  <tr>
+                                  <tr *ngFor="let subject of lstMandetorySubject">
                                     <td>
                                       <div class="form-check mb-2">
-                                        <input class="form-check-input mt-2" type="checkbox" id="formCheck1">
-                                        <label class="form-check-label" for="formCheck1">
-                                          Physics (108)
+                                        <input class="form-check-input mt-2" name="{{subject.subjeceId}}" [(ngModel)]="selectedSubject.mandantorySubject.isChecked" type="checkbox" (change)="changeMandatorySubject()"  id="{{subject.subjeceId}}">
+                                        <label class="form-check-label" for="{{subject.subjeceId}}">
+                                          {{subject.subjectName}}
                                         </label>
                                       </div>
                                     </td>
                                   </tr>
-                                  <tr>
-                                    <td>
-                                      <div class="form-check mb-2">
-                                        <input class="form-check-input mt-2" type="checkbox" id="formCheck1">
-                                        <label class="form-check-label" for="formCheck1">
-                                          Higher Mathematics (109)
-                                        </label>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <div class="form-check mb-2">
-                                        <input class="form-check-input mt-2" type="checkbox" id="formCheck1">
-                                        <label class="form-check-label" for="formCheck1">
-                                          Chemistry (110)
-                                        </label>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <div class="form-check mb-2">
-                                        <input class="form-check-input mt-2" type="checkbox" id="formCheck1">
-                                        <label class="form-check-label" for="formCheck1">
-                                          Economics (111)
-                                        </label>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <div class="form-check mb-2">
-                                        <input class="form-check-input mt-2" type="checkbox" id="formCheck1">
-                                        <label class="form-check-label" for="formCheck1">
-                                          Biology (112)
-                                        </label>
-                                      </div>
-                                    </td>
-                                    <td>
-                                      
-                                    </td>
-                                  </tr>
+                                  
                                   
                                 </table>
                               </td>
@@ -161,51 +54,18 @@
                             <tr>
                               <td>
                                 <table style="width:100%" class="no">
-                                  <tr>
+                                  <tr *ngFor="let subject of lstOptionalSubject">
                                     <td>
                                       <div class="form-check">
-                                        <input class="form-check-input mt-2" type="radio" name="formRadiosRight"
-                                          id="formRadiosRight1">
-                                        <label class="form-check-label" for="formRadiosRight1">
-                                          Biology (112)
+                                        <input class="form-check-input mt-2" type="radio" name="formRadiosRight" [(ngModel)]="selectedSubject.optionalSubject.subjeceId"
+                                          id="{{selectedSubject.optionalSubject.subjeceId}}">
+                                        <label class="form-check-label" for="{{selectedSubject.optionalSubject.subjeceId}}">
+                                          {{subject.subjectName}}
                                         </label>
                                       </div>
                                     </td>
                                   </tr>
-                                  <tr>
-                                    <td>
-                                      <div class="form-check">
-                                        <input class="form-check-input mt-2" type="radio" name="formRadiosRight"
-                                          id="formRadiosRight1">
-                                        <label class="form-check-label" for="formRadiosRight1">
-                                          Agriculture Studies (113)
-                                        </label>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <div class="form-check">
-                                        <input class="form-check-input mt-2" type="radio" name="formRadiosRight"
-                                          id="formRadiosRight1">
-                                        <label class="form-check-label" for="formRadiosRight1">
-                                          Higher Mathematics (109)
-                                        </label>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      <div class="form-check">
-                                        <input class="form-check-input mt-2" type="radio" name="formRadiosRight"
-                                          id="formRadiosRight1">
-                                        <label class="form-check-label" for="formRadiosRight1">
-                                          Economics (111)
-                                        </label>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                 
+                                                                   
                                 </table>
                               </td>
                             </tr>

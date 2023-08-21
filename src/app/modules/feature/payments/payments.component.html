@@ -5,7 +5,7 @@
     <h4 class="modal-title" id="modal-basic-title">Payment Invoice</h4>
   </div>
   <div class="modal-body">
-    <main style=" margin: 0 auto; padding: 10px;background-color: #fff;" id="printtable">
+    <main style="margin: 0 auto; padding: 10px;background-color: #fff;" id="printSection">
       <div class="payment-info-section">
         <header class="payment-header" style="margin: 5px 0;padding: 10px;">
           <!-- <div class="text-center">
@@ -25,10 +25,12 @@
                   <p style="margin-bottom: 0;font-size: 18px;">Islampur, Jamalpur</p>
                 </td>
                 <td style="text-align: right">
-                  <h3 style="color: #2040fa;font-size: 18px;">Invoice No: <span id="lblInvoiceNo">{{selectedPayment.orderNo}}</span>
+                  <h3 style="color: #2040fa;font-size: 18px;">Invoice No: <span
+                      id="lblInvoiceNo">{{selectedPayment.orderNo}}</span>
                     (<span style="color: #153df1;">PAID</span>)
                   </h3>
-                  <p><strong>Date of Payment:</strong> <span id="lblDateOfPayment"> {{selectedPayment.paymentDate}}</span></p>
+                  <p><strong>Date of Payment:</strong> <span id="lblDateOfPayment">
+                      {{selectedPayment.paymentDate}}</span></p>
 
 
                 </td>
@@ -71,8 +73,8 @@
 
 
             <div style="margin-bottom: 10px;"><strong>Fee Category:</strong> {{selectedPayment.feeCategory}}
-              </div>
-            <table class="table table-bordered">
+            </div>
+            <table class="table table-bordered table-striped">
               <thead>
                 <tr>
                   <th class="per70 text-center">Description</th>
@@ -101,16 +103,16 @@
               </tfoot>
             </table>
           </div>
-
         </section>
       </div>
     </main>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-danger" onclick="printReport()"><i class="fas fa-times"></i>
-      Close</button>
+
     <button type="button" class="btn btn-danger" (click)="modalClose()"><i class="fas fa-times"></i>
       Close</button>
+    <button type="button" class="btn btn-info" onclick="portraitPrintHTML('printSection')"><i class="fas fa-print"></i>
+      Print Invoice</button>
   </div>
 </ng-template>
 

@@ -21,4 +21,8 @@ export class QueryObject {
     villageAreaID: number;
     territoryID: number;
     territoryName: string;
+
+    //Student Info
+    ClassId: string = '221';
+    GroupId: string = '110';
 }

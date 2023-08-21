@@ -22,6 +22,7 @@ import { environment } from 'src/environments/environment';
 import { AgGridModule } from 'ag-grid-angular';
 import { PaymentsComponent } from './payments/payments.component';
 import { SubjectChoiceComponent } from './subject-choice/subject-choice.component';
+import { SubjectService } from 'src/app/core/services/edu/subject.service';
 
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -57,6 +58,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
           libraries: ['places', 'drawing', 'geometry']
         }),
     ],
-    
+    providers: [
+      SubjectService
+    ]
 })
 export class FeatureModule { }

@@ -13,6 +13,43 @@
 <body>
   <app-root>
   </app-root>
+
+
+  <script>
+    function portraitPrintHTML(printElementID) {
+
+      var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+      mywindow.document.write('<html><head><title></title>');
+      mywindow.document.write('<link href="../assets/css/bootstrap.css" rel="stylesheet">');
+      mywindow.document.write('<style>');
+      mywindow.document.write('@media print{');
+      mywindow.document.write('table {width:100%}');
+      mywindow.document.write('.table-bordered th{vertical-align: middle!important;background: #ededed!important}');
+      mywindow.document.write('.table-bordered th, .table-bordered td {border: 1px solid #000 !important;font-size:14px!important;color:#000!important}');
+      mywindow.document.write('.print-report-header table td {font-size:18px!important;font-weight:500!important;}');
+      mywindow.document.write('.table-footer td {background: #ededed!important}');
+      // Report Display with print same table 
+      mywindow.document.write('.bpdms-dstwise-table .table thead th { background: #8fa3f3!important; color: #000!important; } ');
+      mywindow.document.write('.bpdms-dstwise-table .table thead .grand-total-th th { background: #ececec!important; color: rgb(0, 0, 0)!important; }');
+      // Report Display with print same table 
+      mywindow.document.write('}');
+      mywindow.document.write('</style>');
+      mywindow.document.write('</head><body style="background-color: #fff !important;" >');
+      mywindow.document.write(document.getElementById(printElementID).innerHTML);
+      mywindow.document.write('</body></html>');
+      mywindow.document.close(); // necessary for IE >= 10
+      mywindow.focus(); // necessary for IE >= 10*/
+
+      setTimeout(function () {
+        mywindow.print();
+        var ival = setInterval(function () {
+          mywindow.close();
+          clearInterval(ival);
+        }, 200);
+      }, 500);
+      return true;
+    }
+  </script>
 </body>
 
 </html>
