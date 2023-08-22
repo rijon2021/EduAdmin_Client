@@ -29,7 +29,8 @@ export class SubjectService {
     return this.httpClientService.get(url);
   }
   save(obj) {
-    let url = this.controllerName+'/saveSubject';
+    debugger
+    let url = this.controllerName+'/Submit';
     return this.httpClientService.postJson(url, obj);
   }
   // update(obj) {

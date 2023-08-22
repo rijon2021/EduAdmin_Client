@@ -1,21 +1,8 @@
+import { MandantorySubject } from "./mandantorySubject";
+
 export class SubjectChoice {
     studentId: number;
-    mandantorySubject: MandantorySubject;
-    optionalSubject: OptionalSubject;
+    optionalSubject:number;
+    mandatorySubjects: MandantorySubject[] = new Array<MandantorySubject>();
 
-    constructor(){
-        this.mandantorySubject = new MandantorySubject();
-        this.optionalSubject = new OptionalSubject();
-    }
-}
-export class MandantorySubject {
-    subjeceId: number;
-    subjectName: string;
-    isChecked: boolean;
-    
-}
-export class OptionalSubject {
-    subjeceId: number;
-    subjectName: string;
-    
 }

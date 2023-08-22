@@ -23,12 +23,12 @@
                             <tr>
                               <td>
                                 <table style="width:100%" class="no">
-                                  <tr *ngFor="let subject of lstMandetorySubject">
+                                  <tr *ngFor="let msubject of lstMandetorySubject">
                                     <td>
                                       <div class="form-check mb-2">
-                                        <input class="form-check-input mt-2" name="{{subject.subjeceId}}" [(ngModel)]="selectedSubject.mandantorySubject.isChecked" type="checkbox" (change)="changeMandatorySubject()"  id="{{subject.subjeceId}}">
-                                        <label class="form-check-label" for="{{subject.subjeceId}}">
-                                          {{subject.subjectName}}
+                                        <input class="form-check-input mt-2" name="{{msubject.subjeceId}}" [value]="msubject.subjeceId" type="checkbox" (change)="changeMandatorySubject($event, msubject.subjeceId)"  id="{{msubject.subjeceId}}">
+                                        <label class="form-check-label" for="{{msubject.subjeceId}}">
+                                          {{msubject.subjectName}}
                                         </label>
                                       </div>
                                     </td>
@@ -54,13 +54,13 @@
                             <tr>
                               <td>
                                 <table style="width:100%" class="no">
-                                  <tr *ngFor="let subject of lstOptionalSubject">
+                                  <tr *ngFor="let osubject of lstOptionalSubject">
                                     <td>
                                       <div class="form-check">
-                                        <input class="form-check-input mt-2" type="radio" name="formRadiosRight" [(ngModel)]="selectedSubject.optionalSubject.subjeceId"
-                                          id="{{selectedSubject.optionalSubject.subjeceId}}">
-                                        <label class="form-check-label" for="{{selectedSubject.optionalSubject.subjeceId}}">
-                                          {{subject.subjectName}}
+                                        <input class="form-check-input mt-2" type="radio" name="{{osubject.subjeceId}}" [value]="osubject.subjeceId" [(ngModel)]="selectedSubject.optionalSubject"
+                                          id="o{{osubject.subjeceId}}">
+                                        <label class="form-check-label" for="o{{osubject.subjeceId}}">
+                                          {{osubject.subjectName}}
                                         </label>
                                       </div>
                                     </td>
