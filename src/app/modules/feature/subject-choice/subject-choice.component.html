@@ -2,13 +2,41 @@
   <app-page-title title="Subject Choice"></app-page-title>
   <div class="row">
     <div class="col-lg-12">
-      
       <div class="completed-subject-list">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <h4 class="card-header mb-2">Elected Subject</h4>
+              <div class="card-body">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>SN</th>
+                      <th>Subject Id</th>
+                      <th>Subject Name</th>
+                      <th>Mandatory/Optional</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let esubject of lstElectedSubject">
+                      <td>SN</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="subject-choice">
         <div class="row">
           <div class="col-lg-12">
             <div class="card">
+              <h4 class="card-header mb-2">Subject Choice</h4>
               <div class="card-body">
-                <h4 class="card-title mb-2">Subject Choice</h4>
                 <div class="subject-choice">
                   <div class="row">
                     <div class="col-md-4">

@@ -22,7 +22,5 @@ export class QueryObject {
     territoryID: number;
     territoryName: string;
 
-    //Student Info
-    ClassId: string = '221';
-    GroupId: string = '110';
+   
 }

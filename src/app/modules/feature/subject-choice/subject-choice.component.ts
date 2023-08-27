@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SweetAlertEnum, SweetAlertService } from 'src/app/core/helpers/sweet-alert.service';
 import { QueryObject } from 'src/app/core/models/core/queryObject';
+import { ElectedSubject } from 'src/app/core/models/edu/electedSubject';
 import { MandantorySubject } from 'src/app/core/models/edu/mandantorySubject';
 import { OptionalSubject } from 'src/app/core/models/edu/optionalSubject';
 import { SubjectChoice } from 'src/app/core/models/edu/subjectChoice';
@@ -16,6 +17,7 @@ import { SubjectService } from 'src/app/core/services/edu/subject.service';
 export class SubjectChoiceComponent implements OnInit {
 
   selectedSubject: SubjectChoice = new SubjectChoice();
+  lstElectedSubject: ElectedSubject[] = new Array<ElectedSubject>();
   lstMandetorySubject: MandantorySubject[] = new Array<MandantorySubject>();
   lstOptionalSubject: OptionalSubject[] = new Array<OptionalSubject>();
   queryObject: QueryObject = new QueryObject();
@@ -31,13 +33,24 @@ export class SubjectChoiceComponent implements OnInit {
 
   ngOnInit() {
     this.studentId = parseInt(localStorage.getItem(LOCALSTORAGE_KEY.STUDENT_ID));
+    this.getAllElectedSubjects();
     this.getAllMandetorySubjects();
     this.getAllMandetoryOptional();
   }
 
 
+  getAllElectedSubjects() {
+    this.subjectService.getAllMandetorySubject(this.studentId).subscribe(
+      (res: ElectedSubject) => {
+        if (res) {
+          debugger
+          let aaa = res;
+        }
+      }
+    )
+  }
   getAllMandetorySubjects() {
-    this.subjectService.getAllMandetorySubject(this.queryObject.ClassId, this.queryObject.GroupId).subscribe(
+    this.subjectService.getAllMandetorySubject(this.studentId).subscribe(
       (res: MandantorySubject) => {
         if (res) {
           this.lstMandetorySubject = Object.assign(this.lstMandetorySubject, res);
@@ -47,7 +60,7 @@ export class SubjectChoiceComponent implements OnInit {
   }
   getAllMandetoryOptional() {
 
-    this.subjectService.getAllMandetoryOptional(this.queryObject.ClassId, this.queryObject.GroupId).subscribe(
+    this.subjectService.getAllMandetoryOptional(this.studentId).subscribe(
       (res: OptionalSubject) => {
         if (res) {
           this.lstOptionalSubject = Object.assign(this.lstOptionalSubject, res);
@@ -57,7 +70,6 @@ export class SubjectChoiceComponent implements OnInit {
   }
   changeMandatorySubject(event: any, Id) {
     if (event) {
-      
       this.lstSelectedMandatorySubject.push(Id);
     }
 
@@ -68,7 +80,7 @@ export class SubjectChoiceComponent implements OnInit {
       this.selectedSubject.studentId = this.studentId;
       this.selectedSubject.mandatorySubjects = this.lstSelectedMandatorySubject;
       this.subjectService.save(this.selectedSubject).subscribe(
-        (res:SubjectChoice) => {
+        (res) => {
           if (res) {
             this.swal.message('Data Save Successfully', SweetAlertEnum.success);
           }else{

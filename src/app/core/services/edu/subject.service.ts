@@ -18,14 +18,19 @@ export class SubjectService {
   //   let url = this.controllerName + '/getByID/' + userAutoID;
   //   return this.httpClientService.get(url);
   // }
-  getAllMandetorySubject(ClassId: string, GroupId:string) {
+  getAllElectedSubjects(studentId: number) {
     
-    let url =  this.controllerName +'/Mandetory?ClassId='+ClassId+'&'+'GroupId='+GroupId;
+    let url =  this.controllerName +'/Subjects?StudentId='+studentId;
     return this.httpClientService.get(url);
   }
-  getAllMandetoryOptional(ClassId: string, GroupId:string) {
+  getAllMandetorySubject(studentId: number) {
     
-    let url =  this.controllerName +'/OptionalSubject?ClassId='+ClassId+'&'+'GroupId='+GroupId;
+    let url =  this.controllerName +'/MandetorySubjects?StudentId='+studentId;
+    return this.httpClientService.get(url);
+  }
+  getAllMandetoryOptional(studentId: number) {
+    
+    let url =  this.controllerName +'/OptionalSubject?StudentId='+studentId;
     return this.httpClientService.get(url);
   }
   save(obj) {
