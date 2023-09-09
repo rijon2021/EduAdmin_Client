@@ -17,12 +17,15 @@ import { SubjectService } from 'src/app/core/services/edu/subject.service';
 export class SubjectChoiceComponent implements OnInit {
 
   selectedSubject: SubjectChoice = new SubjectChoice();
-  lstElectedSubject: ElectedSubject[] = new Array<ElectedSubject>();
+  objSubject: ElectedSubject = new ElectedSubject();
+  lstElectedSubject: any;
   lstMandetorySubject: MandantorySubject[] = new Array<MandantorySubject>();
   lstOptionalSubject: OptionalSubject[] = new Array<OptionalSubject>();
   queryObject: QueryObject = new QueryObject();
   lstSelectedMandatorySubject = [];
-  studentId:number;
+  testAPIList:any;
+  studentId: number;
+  subjectStatus: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,18 +36,27 @@ export class SubjectChoiceComponent implements OnInit {
 
   ngOnInit() {
     this.studentId = parseInt(localStorage.getItem(LOCALSTORAGE_KEY.STUDENT_ID));
-    this.getAllElectedSubjects();
+    this.getAllSubjects();
     this.getAllMandetorySubjects();
     this.getAllMandetoryOptional();
+    this.getTestapi();
   }
 
-
-  getAllElectedSubjects() {
-    this.subjectService.getAllMandetorySubject(this.studentId).subscribe(
+  getTestapi() {
+    this.subjectService.testAPI().subscribe(
+      (res) => {
+        if (res) {
+          this.testAPIList = res;
+        }
+      }
+    )
+  }
+  getAllSubjects() {
+    this.subjectService.getAllElectedSubjects(this.studentId).subscribe(
       (res: ElectedSubject) => {
         if (res) {
-          debugger
-          let aaa = res;
+          this.subjectStatus = res.subjectStatus;
+          this.lstElectedSubject =  res.subjects;
         }
       }
     )
@@ -83,7 +95,7 @@ export class SubjectChoiceComponent implements OnInit {
         (res) => {
           if (res) {
             this.swal.message('Data Save Successfully', SweetAlertEnum.success);
-          }else{
+          } else {
             this.swal.message('Data Save Not Successfully', SweetAlertEnum.error);
           }
         }

@@ -8,24 +8,27 @@
             <div class="card">
               <h4 class="card-header mb-2">Elected Subject</h4>
               <div class="card-body">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>SN</th>
-                      <th>Subject Id</th>
-                      <th>Subject Name</th>
-                      <th>Mandatory/Optional</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let esubject of lstElectedSubject">
-                      <td>SN</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="table-responsive">
+                  {{subjectStatus}}
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>SN</th>
+                        <th>Subject Id</th>
+                        <th>Subject Name</th>
+                        <th>Mandatory/Optional</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of lstElectedSubject">
+                        <td>SN</td>
+                        <td>{{item.subId}}</td>
+                        <td>{{item.subjectName}}</td>
+                        <td><span *ngIf="item.isMandatory==true">Mandatory</span><span *ngIf="item.isMandatory==false">Optional</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -54,15 +57,18 @@
                                   <tr *ngFor="let msubject of lstMandetorySubject">
                                     <td>
                                       <div class="form-check mb-2">
-                                        <input class="form-check-input mt-2" name="{{msubject.subjeceId}}" [value]="msubject.subjeceId" type="checkbox" (change)="changeMandatorySubject($event, msubject.subjeceId)"  id="{{msubject.subjeceId}}">
+                                        <input class="form-check-input mt-2" name="{{msubject.subjeceId}}"
+                                          [value]="msubject.subjeceId" type="checkbox"
+                                          (change)="changeMandatorySubject($event, msubject.subjeceId)"
+                                          id="{{msubject.subjeceId}}">
                                         <label class="form-check-label" for="{{msubject.subjeceId}}">
                                           {{msubject.subjectName}}
                                         </label>
                                       </div>
                                     </td>
                                   </tr>
-                                  
-                                  
+
+
                                 </table>
                               </td>
                             </tr>
@@ -85,7 +91,8 @@
                                   <tr *ngFor="let osubject of lstOptionalSubject">
                                     <td>
                                       <div class="form-check">
-                                        <input class="form-check-input mt-2" type="radio" name="{{osubject.subjeceId}}" [value]="osubject.subjeceId" [(ngModel)]="selectedSubject.optionalSubject"
+                                        <input class="form-check-input mt-2" type="radio" name="{{osubject.subjeceId}}"
+                                          [value]="osubject.subjeceId" [(ngModel)]="selectedSubject.optionalSubject"
                                           id="o{{osubject.subjeceId}}">
                                         <label class="form-check-label" for="o{{osubject.subjeceId}}">
                                           {{osubject.subjectName}}
@@ -93,7 +100,7 @@
                                       </div>
                                     </td>
                                   </tr>
-                                                                   
+
                                 </table>
                               </td>
                             </tr>
@@ -105,7 +112,7 @@
                   <div class="row">
                     <div class="col-md-8">
                       <div class="text-end">
-                        <button class="btn btn-info" (click)="save()" >Submit</button>
+                        <button class="btn btn-info" (click)="save()">Submit</button>
                       </div>
                     </div>
                   </div>

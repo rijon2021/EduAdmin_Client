@@ -10,13 +10,16 @@ export class AuthUser {
     designationID: number;
     studentName: string;
     userRoleID: number;
-    tokenResult: TokenResult;
+    accessToken: string;
+    // tokenResult: TokenResult;
     permissions: [];
     globalSettings: GlobalSetting[];
     password: string;
 }
 export class TokenResult {
-    access_token: string;
+    // access_token: string;
+    // accessToken: string;
+    
     // expiration: string | null;
     // userEmail: string;
     // statusCode: number;

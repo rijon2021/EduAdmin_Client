@@ -78,8 +78,8 @@
           <a class="dropdown-item" routerLink="/contacts/profile"><i class="bx bx-user font-size-16 align-middle me-1"></i>
             {{ 'HEADER.LOGIN.PROFILE' | translate}}</a>
          
-          <a class="dropdown-item d-block" href="javascript: void(0);"> <i class="bx bx-cog font-size-16 align-middle me-1"></i>
-            {{'HEADER.LOGIN.SETTINGS' | translate}} </a>
+          <a class="dropdown-item d-block" href="/auth/change-password"> <i class="bx bx-cog font-size-16 align-middle me-1"></i>
+           Change Password </a>
           
           <div class="dropdown-divider"></div>
           <a class="dropdown-item text-danger" href="javascript: void(0);" (click)="logout()"><i

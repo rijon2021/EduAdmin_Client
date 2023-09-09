@@ -2,12 +2,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClientService } from 'src/app/core/services/http-client.service';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class SubjectService {
   private controllerName = 'SubjectChoice';
   constructor(
-    private httpClientService: HttpClientService
+    private httpClientService: HttpClientService,
+    private http: HttpClient
   ) { }
 
   // getAll() {
@@ -18,6 +20,11 @@ export class SubjectService {
   //   let url = this.controllerName + '/getByID/' + userAutoID;
   //   return this.httpClientService.get(url);
   // }
+
+  testAPI(){
+    let url =  'https://jsonplaceholder.typicode.com/posts';
+    return this.http.get(url);
+  }
   getAllElectedSubjects(studentId: number) {
     
     let url =  this.controllerName +'/Subjects?StudentId='+studentId;
