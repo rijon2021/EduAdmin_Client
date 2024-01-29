@@ -39,18 +39,18 @@ export class SubjectChoiceComponent implements OnInit {
     this.getAllSubjects();
     this.getAllMandetorySubjects();
     this.getAllMandetoryOptional();
-    this.getTestapi();
+    // this.getTestapi();
   }
 
-  getTestapi() {
-    this.subjectService.testAPI().subscribe(
-      (res) => {
-        if (res) {
-          this.testAPIList = res;
-        }
-      }
-    )
-  }
+  // getTestapi() {
+  //   this.subjectService.testAPI().subscribe(
+  //     (res) => {
+  //       if (res) {
+  //         this.testAPIList = res;
+  //       }
+  //     }
+  //   )
+  // }
   getAllSubjects() {
     this.subjectService.getAllElectedSubjects(this.studentId).subscribe(
       (res: ElectedSubject) => {
@@ -92,7 +92,7 @@ export class SubjectChoiceComponent implements OnInit {
       this.selectedSubject.studentId = this.studentId;
       this.selectedSubject.mandatorySubjects = this.lstSelectedMandatorySubject;
       this.subjectService.save(this.selectedSubject).subscribe(
-        (res) => {
+        (res: ElectedSubject) => {
           if (res) {
             this.swal.message('Data Save Successfully', SweetAlertEnum.success);
           } else {

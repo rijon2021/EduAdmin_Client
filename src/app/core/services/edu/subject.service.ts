@@ -21,10 +21,10 @@ export class SubjectService {
   //   return this.httpClientService.get(url);
   // }
 
-  testAPI(){
-    let url =  'https://jsonplaceholder.typicode.com/posts';
-    return this.http.get(url);
-  }
+  // testAPI(){
+  //   let url =  'https://jsonplaceholder.typicode.com/posts';
+  //   return this.http.get(url);
+  // }
   getAllElectedSubjects(studentId: number) {
     
     let url =  this.controllerName +'/Subjects?StudentId='+studentId;
@@ -41,9 +41,9 @@ export class SubjectService {
     return this.httpClientService.get(url);
   }
   save(obj) {
-    debugger
+  
     let url = this.controllerName+'/Submit';
-    return this.httpClientService.postJson(url, obj);
+    return this.httpClientService.post(url, obj);
   }
   // update(obj) {
   //   let url = this.controllerName;
