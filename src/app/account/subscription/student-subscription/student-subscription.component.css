@@ -1,0 +1,7 @@
+.table-dark-bordered tr th, .table-dark-bordered tr td{
+    border: 1px solid #555;
+}
+.required-star{
+    color: #ff0000;
+    font-size: 16px;
+}
