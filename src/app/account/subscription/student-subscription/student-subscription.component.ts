@@ -12,6 +12,10 @@ export class StudentSubscriptionComponent implements OnInit {
   ngOnInit() {
   }
 
+  getAllBatch(){
+    
+  }
+
 
   sendPayment(){
     
