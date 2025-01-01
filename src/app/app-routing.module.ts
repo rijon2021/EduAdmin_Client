@@ -4,14 +4,14 @@ import { LoginComponent } from './account/auth/login/login.component';
 
 import { AuthGuard } from './core/guards/auth.guard';
 import { LayoutComponent } from './layouts/layout.component';
-import { SubscriptionLayoutComponent } from './account/subscription/subscription-layout/subscription-layout.component';
+// import { SubscriptionLayoutComponent } from './account/subscription/subscription-layout/subscription-layout.component';
 // import { StudentSubscriptionComponent } from './account/subscription/student-subscription/student-subscription.component';
 // import { Page404Component } from './extrapages/page404/page404.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'subscription', pathMatch: 'full'},
+  { path: '', redirectTo: 'LoginComponent', pathMatch: 'full'},
   // { path: 'subscription', component: StudentSubscriptionComponent },
-  { path: 'subscription', component: SubscriptionLayoutComponent, loadChildren: () => import('./account/subscription/subscription.module').then(m => m.SubscriptionModule) },
+  // { path: 'subscription', component: SubscriptionLayoutComponent, loadChildren: () => import('./account/subscription/subscription.module').then(m => m.SubscriptionModule) },
   { path: 'login', component: LoginComponent, },
   { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule), },
 

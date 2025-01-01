@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { SubjectChoiceComponent } from './subject-choice/subject-choice.component';
+import { NoticeComponent } from './notice/notice.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: 'dashboard' },
@@ -11,7 +12,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'payments', component: PaymentsComponent },
   { path: 'subject-choice', component: SubjectChoiceComponent },
-  // { path: 'map', component: GoogleComponent },
+  { path: 'notice', component: NoticeComponent },
 ];
 
 @NgModule({

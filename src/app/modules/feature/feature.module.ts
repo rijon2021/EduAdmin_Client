@@ -6,9 +6,6 @@ import { NgbNavModule, NgbDropdownModule, NgbModalModule, NgbTooltipModule, NgbC
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { SimplebarAngularModule } from 'simplebar-angular';
-import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
-import interactionPlugin from '@fullcalendar/interaction'; // a plugin
-import bootstrapPlugin from "@fullcalendar/bootstrap";
 import { LightboxModule } from 'ngx-lightbox';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -17,22 +14,18 @@ import { UIModule } from 'src/app/shared/ui/ui.module';
 import { FeatureRoutingModule } from './feature-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { WidgetModule } from "../../shared/widget/widget.module";
-import { AgmCoreModule } from '@agm/core';
-import { environment } from 'src/environments/environment';
-import { AgGridModule } from 'ag-grid-angular';
 import { PaymentsComponent } from './payments/payments.component';
 import { SubjectChoiceComponent } from './subject-choice/subject-choice.component';
 import { SubjectService } from 'src/app/core/services/edu/subject.service';
+import { NoticeComponent } from './notice/notice.component';
+import { AgGridModule } from 'ag-grid-angular';
+import { PaymentsService } from 'src/app/core/services/payments.service';
+import { NoticeService } from 'src/app/core/services/edu/notice.service';
 
 
-FullCalendarModule.registerPlugins([ // register FullCalendar plugins
-  dayGridPlugin,
-  interactionPlugin,
-  bootstrapPlugin
-]);
 
 @NgModule({
-    declarations: [DashboardComponent, PaymentsComponent,SubjectChoiceComponent],
+    declarations: [DashboardComponent, PaymentsComponent,SubjectChoiceComponent, NoticeComponent],
     imports: [
         CommonModule,
         AgGridModule,
@@ -52,14 +45,12 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
         UIModule,
         Ng2SmartTableModule,
         WidgetModule,
-        AgmCoreModule.forRoot({
-          // apiKey: 'AIzaSyBiols4lFvOc7_rGeOZVI6l-YE617w7xR0',
-          apiKey: environment.MAP_API_KEY,
-          libraries: ['places', 'drawing', 'geometry']
-        }),
+        
     ],
     providers: [
-      SubjectService
+      SubjectService,
+      PaymentsService,
+      NoticeService
     ]
 })
 export class FeatureModule { }
