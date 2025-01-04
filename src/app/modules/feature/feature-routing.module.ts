@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { SubjectChoiceComponent } from './subject-choice/subject-choice.component';
 import { NoticeComponent } from './notice/notice.component';
+import { ResultComponent } from './result/result.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: 'dashboard' },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'payments', component: PaymentsComponent },
   { path: 'subject-choice', component: SubjectChoiceComponent },
   { path: 'notice', component: NoticeComponent },
+  { path: 'result', component: ResultComponent },
 ];
 
 @NgModule({

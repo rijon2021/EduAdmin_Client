@@ -21,11 +21,13 @@ import { NoticeComponent } from './notice/notice.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { PaymentsService } from 'src/app/core/services/payments.service';
 import { NoticeService } from 'src/app/core/services/edu/notice.service';
+import { ResultService } from 'src/app/core/services/edu/result.service';
+import { ResultComponent } from './result/result.component';
 
 
 
 @NgModule({
-    declarations: [DashboardComponent, PaymentsComponent,SubjectChoiceComponent, NoticeComponent],
+    declarations: [DashboardComponent, PaymentsComponent,SubjectChoiceComponent, NoticeComponent, ResultComponent],
     imports: [
         CommonModule,
         AgGridModule,
@@ -50,7 +52,8 @@ import { NoticeService } from 'src/app/core/services/edu/notice.service';
     providers: [
       SubjectService,
       PaymentsService,
-      NoticeService
+      NoticeService,
+      ResultService
     ]
 })
 export class FeatureModule { }
