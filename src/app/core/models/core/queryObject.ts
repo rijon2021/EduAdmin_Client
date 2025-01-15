@@ -1,5 +1,8 @@
 export class QueryObject {
     requestObj: object;
+    studentId: number;
+    batchId: number;
+    ExamId: string;
     fromDate: string;
     toDate: string;
     designation: number;

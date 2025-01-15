@@ -1,4 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { HttpResponse } from '@angular/common/http';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ColDef, GridOptions } from 'ag-grid-community';
+import { SweetAlertEnum, SweetAlertService } from 'src/app/core/helpers/sweet-alert.service';
+import { PageModel } from 'src/app/core/models/core/pageModel';
+import { QueryObject } from 'src/app/core/models/core/queryObject';
+import { Result } from 'src/app/core/models/edu/result';
+import { ResultService } from 'src/app/core/services/edu/result.service';
 
 @Component({
   selector: 'app-result',
@@ -7,9 +17,43 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResultComponent implements OnInit {
 
-  constructor() { }
+
+  lstResult: Result[] = new Array<Result>();
+  objResult: Result = new Result();
+  queryObject: QueryObject = new QueryObject();
+  
+
+
+  constructor(
+    private resultService: ResultService,
+    private swal: SweetAlertService,
+    private router: Router,
+    private modalService: NgbModal,
+  ) { }
 
   ngOnInit() {
+    this.getAllExamInfo();
+    // this.queryObject.studentId = localStorage.getItem()
   }
+
+  getAllExamInfo() {
+    this.lstResult = [];
+    this.resultService.getResult(this.objResult).subscribe((response) => {
+      if (response) {
+        this.lstResult = Object.assign(this.lstResult, response);
+      }
+    }
+    );
+  }
+  getResult() {
+    this.lstResult = [];
+    this.resultService.getResult(this.objResult).subscribe((response) => {
+      if (response) {
+        this.lstResult = Object.assign(this.lstResult, response);
+      }
+    }
+    );
+  }
+
 
 }

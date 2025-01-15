@@ -5,14 +5,18 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ResultService {
-  private controllerName = 'Notice';
+  private controllerName = 'Result';
   constructor(
     private httpClientService: HttpClientService,
     private http: HttpClient
   ) { }
 
-  getResult(studentId: number) {
-    let url = this.controllerName + '/?StudentId=' + studentId;
+  getAllExamInfo(obj) {
+    let url = this.controllerName + '/getExamName?batchId=' + obj.BatchId +'&studentId=' + obj.StudentId;
+    return this.httpClientService.get(url);
+  }
+  getResult(obj) {
+    let url = this.controllerName + '/reuslt?BatchId=' + obj.BatchId + '&ExamId='+ obj.ExamId +'&studentId=' + obj.StudentId;
     return this.httpClientService.get(url);
   }
 
