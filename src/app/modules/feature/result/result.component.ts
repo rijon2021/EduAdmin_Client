@@ -8,6 +8,7 @@ import { SweetAlertEnum, SweetAlertService } from 'src/app/core/helpers/sweet-al
 import { PageModel } from 'src/app/core/models/core/pageModel';
 import { QueryObject } from 'src/app/core/models/core/queryObject';
 import { Result } from 'src/app/core/models/edu/result';
+import { LOCALSTORAGE_KEY } from 'src/app/core/models/localstorage-item';
 import { ResultService } from 'src/app/core/services/edu/result.service';
 
 @Component({
@@ -20,6 +21,7 @@ export class ResultComponent implements OnInit {
 
   lstResult: Result[] = new Array<Result>();
   objResult: Result = new Result();
+  lstExamInfo: any = [];
   queryObject: QueryObject = new QueryObject();
   
 
@@ -32,15 +34,17 @@ export class ResultComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
+    this.queryObject.studentId = localStorage.getItem(LOCALSTORAGE_KEY.STUDENT_ID);
+    this.queryObject.batchId = localStorage.getItem(LOCALSTORAGE_KEY.BATCH_ID);
     this.getAllExamInfo();
-    // this.queryObject.studentId = localStorage.getItem()
   }
 
   getAllExamInfo() {
     this.lstResult = [];
-    this.resultService.getResult(this.objResult).subscribe((response) => {
+    this.resultService.getAllExamInfo(this.queryObject).subscribe((response) => {
       if (response) {
-        this.lstResult = Object.assign(this.lstResult, response);
+        this.lstExamInfo = response;
       }
     }
     );

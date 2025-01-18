@@ -1,7 +1,7 @@
 export class QueryObject {
     requestObj: object;
-    studentId: number;
-    batchId: number;
+    studentId: string;
+    batchId: string;
     ExamId: string;
     fromDate: string;
     toDate: string;

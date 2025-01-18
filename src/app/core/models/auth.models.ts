@@ -4,6 +4,7 @@ export class AuthUser {
     userAutoID: number;
     userId: string;
     studentId: string;
+    batchId: string;
     userName: string;
     userTypeID: number;
     organizationID: number;

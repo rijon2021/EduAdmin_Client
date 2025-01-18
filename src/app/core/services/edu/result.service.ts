@@ -12,7 +12,7 @@ export class ResultService {
   ) { }
 
   getAllExamInfo(obj) {
-    let url = this.controllerName + '/getExamName?batchId=' + obj.BatchId +'&studentId=' + obj.StudentId;
+    let url = this.controllerName + '/examName?batchId=' + obj.batchId +'&studentId=' + obj.studentId;
     return this.httpClientService.get(url);
   }
   getResult(obj) {
