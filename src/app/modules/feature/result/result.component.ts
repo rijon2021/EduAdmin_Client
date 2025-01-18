@@ -19,7 +19,6 @@ import { ResultService } from 'src/app/core/services/edu/result.service';
 export class ResultComponent implements OnInit {
 
 
-  lstResult: Result[] = new Array<Result>();
   objResult: Result = new Result();
   lstExamInfo: any = [];
   queryObject: QueryObject = new QueryObject();
@@ -34,14 +33,12 @@ export class ResultComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
     this.queryObject.studentId = localStorage.getItem(LOCALSTORAGE_KEY.STUDENT_ID);
     this.queryObject.batchId = localStorage.getItem(LOCALSTORAGE_KEY.BATCH_ID);
     this.getAllExamInfo();
   }
 
   getAllExamInfo() {
-    this.lstResult = [];
     this.resultService.getAllExamInfo(this.queryObject).subscribe((response) => {
       if (response) {
         this.lstExamInfo = response;
@@ -49,15 +46,19 @@ export class ResultComponent implements OnInit {
     }
     );
   }
-  getResult() {
-    this.lstResult = [];
-    this.resultService.getResult(this.objResult).subscribe((response) => {
+  searchResult() {
+    this.objResult = new Result;
+    this.resultService.getResult(this.queryObject).subscribe((response) => {
       if (response) {
-        this.lstResult = Object.assign(this.lstResult, response);
+        this.objResult = Object.assign(this.objResult, response);
       }
     }
     );
   }
+  getExamName(examID){
+    return this.lstExamInfo.find(x=>x.exInSl == examID).exName;
+  }
+
 
 
 }

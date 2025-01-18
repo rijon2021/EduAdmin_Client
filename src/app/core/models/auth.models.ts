@@ -10,6 +10,7 @@ export class AuthUser {
     organizationID: number;
     designationID: number;
     studentName: string;
+    image: string;
     userRoleID: number;
     accessToken: string;
     // tokenResult: TokenResult;

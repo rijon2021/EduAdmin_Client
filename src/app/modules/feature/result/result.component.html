@@ -1,4 +1,25 @@
-<div class="row justify-content-center">
+
+<div class="card">
+  <div class="card-header"></div>
+  <div class="card-body">
+    <div class="row ">
+      <div class="col-md-4">
+        <div class="row">
+          <label for="" class="col-md-3">Exam Name</label>
+          <div class="col-md-9">
+            <select class="form-select" [(ngModel)]="queryObject.examId" style="height: 32px;">
+              <option *ngFor="let item of lstExamInfo" [value]="item.exInSl">{{item.exName}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-primary" (click)="searchResult()">Search Result</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row justify-content-center" *ngIf="objResult.rollNo">
   <div class="col-md-7">
     <div class="card">
       <div class="card-body">
@@ -8,53 +29,53 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="page-header text-center" id="page-header">
-                    <h3>Pre Test_Science (Science) -2023</h3>
+                    <h3 *ngIf="queryObject.examId">{{getExamName(queryObject.examId)}}</h3>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <div id="result_display" style="">
+                  <div id="result_display" >
                     <div class="table-responsive">
                       <table class="table table-striped table-bordered" width="100%">
                         <tbody>
                           <tr>
                             <td>Roll No</td>
                             <td colspan="3">
-                              503<!-- td -->
+                              {{objResult.rollNo}}
                             </td>
                           </tr>
                           <tr>
                             <td> Name of Student</td>
-                            <td colspan="3">NUSRAT ARA</td>
+                            <td colspan="3"> {{objResult.studentName}}</td>
                           </tr>
                           <tr>
                             <td>Father's Name</td>
-                            <td colspan="3">MD NUR ISLAM NUR</td>
+                            <td colspan="3"> {{objResult.fathersName}}</td>
                           </tr>
                           <tr>
                             <td>Mother's Name</td>
-                            <td colspan="3">ISMAT ARA</td>
+                            <td colspan="3"> {{objResult.mothersName}}</td>
                           </tr>
                           <tr>
                             <td>Session</td>
-                            <td colspan="3">2023-2024</td>
+                            <td colspan="3"> {{objResult.session}}</td>
                           </tr>
                           <tr>
                             <td>Group</td>
-                            <td> Science </td>
+                            <td>  {{objResult.group}} </td>
                             <td>Type</td>
-                            <td>REGULAR</td>
+                            <td> {{objResult.studentType}}</td>
                           </tr>
                           <tr>
                             <td>Result</td>
-                            <td>GPA=3.21</td>
+                            <td>GPA= {{objResult.gpa}}</td>
                             <td>Grade</td>
-                            <td>B</td>
+                            <td> {{objResult.grade}}</td>
                           </tr>
                           <tr>
                             <td>Name of Institute</td>
-                            <td colspan="3"><span id="i_name">ISLAMPUR COLLEGE</span></td>
+                            <td colspan="3"><span id="i_name">ISLAMPUR GOVT. COLLEGE</span></td>
                           </tr>
                         </tbody>
                       </table>
@@ -67,77 +88,26 @@
                           <tr>
                             <th>Subject Code</th>
                             <th>Subject Name</th>
-                            <th>Theory</th>
-                            <th>Practical</th>
-                            <th>MCQ</th>
-                            <th>Total</th>
                             <th>Grade</th>
+                            <th>CQ</th>
+                            <th>MCQ</th>
+                            <th>Practical</th>
+                            <th>Obteined Mark</th>
+                            <th>Total Mark</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td class="cent-align">102</td>
-                            <td><span class="code_101">Bangla</span></td>
-                            <td><span class="code_101">75</span></td>
-                            <td><span class="code_101">0</span></td>
-                            <td><span class="code_101">0</span></td>
-                            <td><span class="code_101">75</span></td>
-                            <td class="cent-align">A</td>
+                          <tr *ngFor="let item of objResult.results">
+                            <td class="text-center">{{item.subcode}}</td>
+                            <td class="text-center">{{item.subjectName}}</td>
+                            <td class="text-center">{{item.grade}}</td>
+                            <td class="text-center">{{item.totalCQ}}</td>
+                            <td class="text-center">{{item.mcq}}</td>
+                            <td class="text-center">{{item.practical}}</td>
+                            <td class="text-center">{{item.obtainedTotalMark}}</td>
+                            <td class="text-center">{{item.totalMark}}</td>
                           </tr>
-                          <tr>
-                            <td class="cent-align">108</td>
-                            <td><span class="code_101">English</span></td>
-                            <td><span class="code_101">51</span></td>
-                            <td><span class="code_101">0</span></td>
-                            <td><span class="code_101">0</span></td>
-                            <td><span class="code_101">51</span></td>
-                            <td class="cent-align">B</td>
-                          </tr>
-                          <tr>
-                            <td class="cent-align">275</td>
-                            <td><span class="code_101">ICT</span></td>
-                            <td><span class="code_101">17</span></td>
-                            <td><span class="code_101">20</span></td>
-                            <td><span class="code_101">8</span></td>
-                            <td><span class="code_101">45</span></td>
-                            <td class="cent-align">C</td>
-                          </tr>
-                          <tr>
-                            <td class="cent-align">175</td>
-                            <td><span class="code_101">Physics</span></td>
-                            <td><span class="code_101">27</span></td>
-                            <td><span class="code_101">25</span></td>
-                            <td><span class="code_101">11</span></td>
-                            <td><span class="code_101">63</span></td>
-                            <td class="cent-align">A-</td>
-                          </tr>
-                          <tr>
-                            <td class="cent-align">177</td>
-                            <td><span class="code_101">Chemistry</span></td>
-                            <td><span class="code_101">17</span></td>
-                            <td><span class="code_101">20</span></td>
-                            <td><span class="code_101">8</span></td>
-                            <td><span class="code_101">45</span></td>
-                            <td class="cent-align">C</td>
-                          </tr>
-                          <tr>
-                            <td class="cent-align">179</td>
-                            <td><span class="code_101">Biology</span></td>
-                            <td><span class="code_101">36</span></td>
-                            <td><span class="code_101">25</span></td>
-                            <td><span class="code_101">17</span></td>
-                            <td><span class="code_101">78</span></td>
-                            <td class="cent-align">A</td>
-                          </tr>
-                          <tr>
-                            <td class="cent-align">266</td>
-                            <td><span class="code_101">Higher Mathematics</span></td>
-                            <td><span class="code_101">0</span></td>
-                            <td><span class="code_101">0</span></td>
-                            <td><span class="code_101">11</span></td>
-                            <td><span class="code_101">11</span></td>
-                            <td class="cent-align">F</td>
-                          </tr>
+                          
                         </tbody>
                       </table>
                       <div class="divpadding"></div>

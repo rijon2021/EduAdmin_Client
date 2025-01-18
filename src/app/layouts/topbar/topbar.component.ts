@@ -21,6 +21,7 @@ import { LOCALSTORAGE_KEY } from 'src/app/core/models/localstorage-item';
  */
 export class TopbarComponent implements OnInit {
   userFullName: string; 
+  studentPhoto: string; 
 
   element;
   cookieValue;
@@ -56,7 +57,7 @@ export class TopbarComponent implements OnInit {
     this.element = document.documentElement;
 
     this.userFullName = localStorage.getItem(LOCALSTORAGE_KEY.USER_FULL_NAME);
-
+    this.studentPhoto = localStorage.getItem(LOCALSTORAGE_KEY.STUDENT_PHOTO);
     this.cookieValue = this._cookiesService.get('lang');
     const val = this.listLang.filter(x => x.lang === this.cookieValue);
     this.countryName = val.map(element => element.text);

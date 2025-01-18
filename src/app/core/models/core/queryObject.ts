@@ -2,7 +2,7 @@ export class QueryObject {
     requestObj: object;
     studentId: string;
     batchId: string;
-    ExamId: string;
+    examId: string;
     fromDate: string;
     toDate: string;
     designation: number;

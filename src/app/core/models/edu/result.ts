@@ -1,17 +1,16 @@
 export class Result{
     resultId: number;
-    StudentId: number;
+    studentId: number;
     admissionNo: number;
-    classRoll: number;
+    rollNo: number;
     studentName:string;
-    fatherName:string;
-    motherName:string;
+    fathersName:string;
+    mothersName:string;
     session:string;
     group:string;
     studentType: string;
     gpa: string;
     grade: string;
-    instituteName: string;
-    lstSubjectMark: [];
+    results: [];
 
 }

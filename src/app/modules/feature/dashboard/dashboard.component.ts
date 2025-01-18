@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
   statData: Array<[]>;
   userFullName:string;
   studentID:string;
+  studentPhoto:string;
   isActive: string;
 
   @ViewChild('content') content;
@@ -34,6 +35,7 @@ export class DashboardComponent implements OnInit {
      */
     this.userFullName = localStorage.getItem(LOCALSTORAGE_KEY.USER_FULL_NAME);
     this.studentID = localStorage.getItem(LOCALSTORAGE_KEY.STUDENT_ID);
+    this.studentPhoto = localStorage.getItem(LOCALSTORAGE_KEY.STUDENT_PHOTO);
      const attribute = document.body.getAttribute('data-layout');
 
      this.isVisible = attribute;
