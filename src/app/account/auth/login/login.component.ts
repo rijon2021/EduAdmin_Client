@@ -105,6 +105,8 @@ export class LoginComponent implements OnInit {
     localStorage.setItem(LOCALSTORAGE_KEY.USER_FULL_NAME, authUser.studentName);
     localStorage.setItem(LOCALSTORAGE_KEY.STUDENT_PHOTO, authUser.image);
     localStorage.setItem(LOCALSTORAGE_KEY.BATCH_ID, authUser.batchId);
+    localStorage.setItem(LOCALSTORAGE_KEY.CLASS_ID, authUser.classId);
+    localStorage.setItem(LOCALSTORAGE_KEY.GROUP_ID, authUser.groupId);
     // localStorage.setItem(LOCALSTORAGE_KEY.ROLE_ID, authUser.userRoleID.toString());
     // localStorage.setItem(LOCALSTORAGE_KEY.PERMISSIONS, JSON.stringify(authUser.permissions));
     // localStorage.setItem(LOCALSTORAGE_KEY.GLOBAL_SETTINGS, JSON.stringify(authUser.globalSettings));

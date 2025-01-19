@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef, GridOptions } from 'ag-grid-community';
+import { QueryObject } from 'src/app/core/models/core/queryObject';
 import { Notice } from 'src/app/core/models/edu/notice';
 import { LOCALSTORAGE_KEY } from 'src/app/core/models/localstorage-item';
 import { NoticeService } from 'src/app/core/services/edu/notice.service';
@@ -15,27 +16,33 @@ export class NoticeComponent implements OnInit {
 
   @ViewChild("viewNoticeModal") viewNoticeModal: TemplateRef<any>;
   
-  studentId:number;
-  studentName:string;
+  classId:string;
+  groupId:string;
   rowData:any;
   lstNotice:any;
   selectedNotice: Notice = new Notice();
+  queryObject: QueryObject = new QueryObject();
   constructor(
     private noticeService: NoticeService,
     private modalService: NgbModal
   ) { }
 
   ngOnInit() {
-    this.studentId = parseInt(localStorage.getItem(LOCALSTORAGE_KEY.STUDENT_ID));
-    this.studentName = localStorage.getItem(LOCALSTORAGE_KEY.USER_FULL_NAME);
+    this.classId = localStorage.getItem(LOCALSTORAGE_KEY.CLASS_ID);
+    this.groupId = localStorage.getItem(LOCALSTORAGE_KEY.GROUP_ID);
     this.getNotices();
 
   }
 
   getNotices(){
-    this.noticeService.getAll(this.studentId).subscribe(
-      (res)=>{
-        this.lstNotice = res;
+    this.queryObject = new QueryObject;
+    this.queryObject.classId = this.classId;
+    this.queryObject.groupId = this.groupId;
+    this.noticeService.getAll(this.queryObject).subscribe(
+      (res:Notice)=>{
+        this.lstNotice = Object.assign(this.lstNotice, res);
+          this.lstNotice = [...this.lstNotice];
+          this.gridOptions.api.redrawRows();
         
       }
     )
@@ -104,9 +111,10 @@ const dataDefaultColDef: ColDef = {
 };
 const dataColumnDefs = [
   { isVisible: true, field: 'slNo', headerName: 'SL', lockPosition: true, pinned: 'left', suppressMovable: true, valueGetter: "node.rowIndex + 1", resizable: false, width: 80 },
-  { isVisible: true, field: "noticeDate", headerName: 'Date of Notice', headerClass: 'ag-grid-text-center',cellRenderer: (data) => { return data.value ? (new Date(data.value)).toLocaleDateString() : ''; }, cellStyle: { textAlign: 'center' } },
+  { isVisible: true, field: "date", headerName: 'Date of Notice', headerClass: 'ag-grid-text-center',cellRenderer: (data) => { return data.value ? (new Date(data.value)).toLocaleDateString() : ''; }, cellStyle: { textAlign: 'center' } },
   { isVisible: true, field: "className", headerName: 'Class Name'},
   { isVisible: true, field: "noticeTitle", headerName: 'Notice Title'},
+  { isVisible: true, field: "noticeDescription", headerName: 'Description'},
   { isVisible: true, field: "attachmentLink", headerName: 'Attachment Link'},
 
   

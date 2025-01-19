@@ -5,6 +5,8 @@ export class AuthUser {
     userId: string;
     studentId: string;
     batchId: string;
+    classId: string;
+    groupId: string;
     userName: string;
     userTypeID: number;
     organizationID: number;

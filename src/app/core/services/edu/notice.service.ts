@@ -5,14 +5,14 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class NoticeService {
-  private controllerName = 'Notice';
+  private controllerName = 'v2/Notice';
   constructor(
     private httpClientService: HttpClientService,
     private http: HttpClient
   ) { }
 
-  getAll(studentId: number) {
-    let url = this.controllerName + '/?StudentId=' + studentId;
+  getAll(obj) {
+    let url = this.controllerName + '/getNotice?classId=' + obj.classId+'&groupId=' + obj.groupId;
     return this.httpClientService.get(url);
   }
 
